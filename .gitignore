@@ -1,0 +1,10 @@
+# Sách tham khảo (có bản quyền, dung lượng lớn)
+*.pdf
+
+# Dữ liệu và checkpoint sinh ra khi chạy notebook
+data/
+*.pt
+*.pth
+
+.ipynb_checkpoints/
+__pycache__/
