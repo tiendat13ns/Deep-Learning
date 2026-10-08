@@ -1,0 +1,2 @@
+model,config,n_params,train_seconds,test_macro_f1,test_micro_f1,test_hamming_loss,test_lrap,test_mAP,test_subset_acc,test_macro_f1_head,test_macro_f1_mid,test_macro_f1_tail,val_macro_f1,val_micro_f1
+TF-IDF + OvR LR,"('word', 4, 'balanced')",1053556,2.7,0.5482,0.563,0.0666,0.6936,0.561,0.1597,0.5773,0.5341,0.5295,0.5338,0.5522
