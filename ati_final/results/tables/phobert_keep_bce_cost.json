@@ -1,0 +1,50 @@
+{
+ "name": "phobert_keep_bce",
+ "checkpoint": "vinai/phobert-base",
+ "revision": "01daacda68afe13d83023d16ec647239e344a1e6",
+ "n_params": 135019804,
+ "train_seconds": 663.3,
+ "best_epoch": 6,
+ "epochs_run": 6,
+ "peak_gpu_gb": 3.26,
+ "args": {
+  "emoji": "keep",
+  "loss": "bce",
+  "epochs": 6,
+  "patience": 2,
+  "bs": 16,
+  "lr": 2e-05,
+  "wd": 0.01,
+  "warmup": 0.1,
+  "max_len": 128,
+  "seed": 42,
+  "limit": 0,
+  "name": null
+ },
+ "unk_rate": 0.029803818056191724,
+ "torch": "2.14.1+cu126",
+ "transformers": "5.17.0",
+ "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+ "test": {
+  "macro_f1": 0.49092794985273264,
+  "micro_f1": 0.548906439854192,
+  "hamming_loss": 0.05131660792038151,
+  "lrap": 0.7125986814498901,
+  "mAP": 0.584959769996582,
+  "subset_acc": 0.22351233671988388,
+  "macro_f1_head": 0.5727677685320158,
+  "macro_f1_mid": 0.4539976839917528,
+  "macro_f1_tail": 0.43479100882985355
+ },
+ "val": {
+  "macro_f1": 0.4779815399859393,
+  "micro_f1": 0.5348232052655748,
+  "hamming_loss": 0.052534227631033055,
+  "lrap": 0.7028027772903442,
+  "mAP": 0.5704135973028402,
+  "subset_acc": 0.22700871248789933,
+  "macro_f1_head": 0.5526303981151113,
+  "macro_f1_mid": 0.45599216398647374,
+  "macro_f1_tail": 0.41215718732380585
+ }
+}

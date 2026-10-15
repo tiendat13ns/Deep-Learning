@@ -1,0 +1,71 @@
+group,sample_id,label,prob,true_labels,pred_labels,n_true
+fn_random,2912,joy,0.2785510718822479,amusement; joy,amusement,2
+fn_random,18285,love,0.31017178297042847,love; caring; sadness; grief,caring; sadness; grief,4
+fn_random,26598,anger,0.032344330102205276,sadness; anger,disappointment; sadness,2
+fn_random,x000690,optimism,0.4685474932193756,joy; optimism; relief,joy; relief,3
+fn_random,tik012648,joy,0.007999754510819912,joy; sadness,disappointment; sadness,2
+fn_random,x000619,caring,0.3993430435657501,optimism; caring; realization,optimism; realization,3
+fn_random,tik024068,joy,0.23934932053089142,joy; love; pride,love; pride,3
+fn_random,4010,curiosity,0.026657739654183388,amusement; curiosity,amusement; joy,2
+fn_random,tik003321,desire,0.20689405500888824,desire; caring,love; caring,2
+fn_random,2771,desire,0.05749328061938286,amusement; desire,amusement; excitement; joy,2
+fn_random,2189,desire,0.440860390663147,amusement; excitement; desire,amusement; excitement; curiosity,3
+fn_random,33707,neutral,0.33829569816589355,neutral,realization,1
+fn_random,tik023873,pride,0.10320506244897842,pride; disappointment,disapproval; neutral,2
+fn_random,23475,neutral,0.3309035003185272,neutral,,1
+fn_random,thr000339,remorse,0.03718677535653114,remorse; sadness,annoyance; disapproval,2
+fn_random,307,fear,0.16211456060409546,fear; disgust; anger,grief; disgust; anger,3
+fn_random,32486,nervousness,0.02241421490907669,fear; nervousness; disappointment; annoyance,anger; annoyance,4
+fn_random,21476,confusion,0.23196201026439667,surprise; confusion; annoyance,amusement; annoyance; disapproval,3
+fn_random,23751,confusion,0.10105590522289276,admiration; confusion; sadness,amusement; joy; admiration; surprise,3
+fn_random,3272,fear,0.4562583267688751,fear; disgust; anger,amusement; disgust; anger; annoyance,3
+fp_random,6454,love,0.6892010569572449,gratitude; realization; sadness,love; gratitude; relief,3
+fp_random,4766,amusement,0.6083032488822937,curiosity; disappointment; annoyance,amusement; annoyance; disapproval,3
+fp_random,32504,caring,0.8826303482055664,optimism; approval; neutral,love; optimism; caring; approval,3
+fp_random,31813,anger,0.7145284414291382,annoyance,disgust; anger; annoyance,1
+fp_random,3021,disgust,0.6302298903465271,amusement; surprise,surprise; disgust,2
+fp_random,31784,disappointment,0.5315133333206177,disgust,disappointment; annoyance; disapproval,1
+fp_random,1940,sadness,0.5201459527015686,confusion; remorse,curiosity; confusion; disappointment; sadness,2
+fp_random,4935,excitement,0.5476152896881104,amusement; joy; love,amusement; excitement; joy; love,3
+fp_random,13329,disapproval,0.6782203912734985,anger,anger; annoyance; disapproval,1
+fp_random,6895,disapproval,0.8539127111434937,disgust; annoyance,anger; annoyance; disapproval,2
+fp_random,tik015891,desire,0.609698474407196,sadness,desire; embarrassment; sadness,1
+fp_random,tik023347,approval,0.6634509563446045,pride; admiration,optimism; pride; approval,2
+fp_random,tik005419,desire,0.9376689791679382,amusement; excitement,excitement; desire,2
+fp_random,1887,disapproval,0.6620321273803711,disgust; anger,disgust; anger; annoyance; disapproval,2
+fp_random,1044,nervousness,0.559951901435852,disgust,nervousness,1
+fp_random,12472,grief,0.8198933005332947,joy; admiration; sadness,love; sadness; grief,3
+fp_random,3488,confusion,0.7581526637077332,approval,curiosity; confusion,1
+fp_random,4237,confusion,0.8294920325279236,amusement,amusement; confusion; annoyance; disapproval,1
+fp_random,1890,grief,0.8366881012916565,fear; nervousness; sadness,disappointment; sadness; grief,3
+fp_random,x000024,relief,0.8848377466201782,optimism,optimism; relief,1
+fn_extreme,3919,fear,0.0013045065570622683,confusion; fear,,2
+fn_extreme,15999,optimism,0.0019117692718282342,amusement; optimism,annoyance; disapproval,2
+fn_extreme,480,optimism,0.0019117692718282342,amusement; optimism,amusement; surprise,2
+fn_extreme,3006,annoyance,0.0019192374311387539,annoyance,joy; love; optimism; caring; admiration,1
+fn_extreme,you001415,gratitude,0.002082970691844821,gratitude; relief,neutral,2
+fn_extreme,3145,surprise,0.0025909794494509697,surprise,amusement; anger; annoyance,1
+fn_extreme,tik018096,relief,0.0026214411482214928,relief,excitement; approval,1
+fn_extreme,219,neutral,0.00272558256983757,neutral,disgust; anger,1
+fn_extreme,2202,pride,0.0027791904285550117,amusement; pride,disgust; anger; annoyance,2
+fn_extreme,tik000433,nervousness,0.0028671587351709604,nervousness,disgust; anger; annoyance,1
+fp_extreme,you002775,admiration,0.995075523853302,joy; approval,joy; admiration,2
+fp_extreme,you005917,remorse,0.9941118359565735,confusion; sadness,remorse; sadness,2
+fp_extreme,30774,gratitude,0.9930693507194519,joy; love; caring; admiration,joy; gratitude; relief,4
+fp_extreme,32505,fear,0.9920312166213989,disgust,fear; nervousness; disgust,1
+fp_extreme,tik013968,desire,0.9918753504753113,realization,desire,1
+fp_extreme,you000108,pride,0.9911527037620544,disgust,pride; admiration,1
+fp_extreme,2618,fear,0.9908389449119568,annoyance; disapproval,amusement; fear; nervousness; disgust; annoyance,2
+fp_extreme,33650,love,0.9892232418060303,admiration,love; caring,1
+fp_extreme,you005813,amusement,0.9890130758285522,nervousness,amusement,1
+fp_extreme,3328,amusement,0.9888849258422852,disapproval,amusement; excitement; joy,1
+multi_label,tik013311,,,confusion; nervousness; remorse; sadness,confusion; nervousness; remorse; sadness,4
+multi_label,2491,,,joy; pride; admiration; approval,joy; love; optimism; caring; approval,4
+multi_label,2964,,,joy; optimism; caring; sadness,excitement; joy; optimism,4
+multi_label,563,,,surprise; curiosity; confusion; disappointment; annoyance,surprise; curiosity; confusion; annoyance,5
+multi_label,tik017356,,,embarrassment; disappointment; sadness; disgust,embarrassment; sadness,4
+multi_label,30114,,,fear; nervousness; anger; annoyance,disappointment; annoyance; disapproval,4
+multi_label,you004215,,,amusement; excitement; joy; love,amusement; excitement; joy,4
+multi_label,x001522,,,love; desire; optimism; caring,optimism; caring; relief,4
+multi_label,16663,,,joy; love; caring; admiration,joy; love; caring; admiration; gratitude; approval,4
+multi_label,18176,,,optimism; caring; admiration; sadness,love; desire; optimism; caring; sadness; grief,4

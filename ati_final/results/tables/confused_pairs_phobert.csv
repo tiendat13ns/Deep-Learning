@@ -1,0 +1,16 @@
+nhãn thật bị bỏ sót,bị nhầm thành,số mẫu,"phi train (i,j)"
+annoyance,sadness,21,-0.12
+disgust,disapproval,18,0.02
+disappointment,disapproval,17,-0.04
+annoyance,disgust,16,0.08
+annoyance,anger,14,0.25
+sadness,annoyance,13,-0.12
+disappointment,amusement,13,-0.1
+disapproval,disgust,12,0.02
+annoyance,disappointment,12,0.05
+disgust,annoyance,12,0.08
+neutral,annoyance,12,-0.07
+anger,disappointment,11,-0.07
+disgust,anger,11,0.21
+anger,disapproval,11,0.07
+annoyance,grief,11,-0.07

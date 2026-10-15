@@ -1,0 +1,3 @@
+,macro_f1,micro_f1,hamming_loss,lrap,mAP,subset_acc,train_s
+bce,0.5164,0.5416,0.059,0.6684,0.5254,0.2004,151.4
+bce_posweight,0.4323,0.4387,0.1318,0.6408,0.5037,0.0523,168.1

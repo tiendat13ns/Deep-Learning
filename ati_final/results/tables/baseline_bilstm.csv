@@ -1,0 +1,2 @@
+model,config,n_params,train_seconds,test_macro_f1,test_micro_f1,test_hamming_loss,test_lrap,test_mAP,test_subset_acc,test_macro_f1_head,test_macro_f1_mid,test_macro_f1_tail,val_macro_f1,val_micro_f1
+BiLSTM,bce; emb200 hid128 drop0.3 lr1e-3 bs64 maxlen100 vocab5128,1377884,151.4,0.5115,0.5408,0.059,0.6753,0.5388,0.208,0.5518,0.5019,0.4732,0.5164,0.5416

@@ -1,0 +1,13 @@
+cặp,phi_train,test: thật cùng có,TF-IDF+LR: dự đoán cùng có,TF-IDF+LR: đúng cả đôi,BiLSTM: dự đoán cùng có,BiLSTM: đúng cả đôi,PhoBERT: dự đoán cùng có,PhoBERT: đúng cả đôi
+fear - nervousness,0.41,43,51,24,47,21,63,26
+sadness - grief,0.38,71,110,51,77,43,152,60
+disappointment - sadness,0.36,127,128,48,121,50,171,73
+excitement - joy,0.26,46,71,21,61,13,85,28
+anger - annoyance,0.25,84,183,47,105,30,196,48
+gratitude - relief,0.23,22,44,16,31,8,38,16
+joy - love,0.22,42,64,24,53,21,103,29
+optimism - caring,0.22,50,73,29,35,14,103,37
+annoyance - disapproval,0.22,59,119,22,44,14,161,39
+disgust - anger,0.21,42,121,26,64,18,157,33
+love - pride,0.19,16,34,15,24,14,28,16
+curiosity - confusion,0.16,30,50,14,39,10,77,21

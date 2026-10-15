@@ -1,0 +1,8 @@
+so sánh,rho,số cặp
+trần: phi(train) với phi(test thật),0.928,378
+TF-IDF+LR: phi(test thật) với phi(dự đoán),0.837,378
+TF-IDF+LR: phi(train) với phi(dự đoán),0.866,378
+BiLSTM: phi(test thật) với phi(dự đoán),0.88,378
+BiLSTM: phi(train) với phi(dự đoán),0.901,378
+PhoBERT: phi(test thật) với phi(dự đoán),0.898,378
+PhoBERT: phi(train) với phi(dự đoán),0.932,378

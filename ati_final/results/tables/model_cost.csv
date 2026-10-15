@@ -1,0 +1,8 @@
+run,n_params,train_seconds,wall_seconds_raw,epochs,config,checkpoint,peak_gpu_gb
+phobert_keep_bce,135019804,660.1,663.3,6/6,"emoji=keep, loss=bce, lr=2e-05, bs=16, max_len=128, seed=42",vinai/phobert-base@01daacda,3.26
+phobert_text_bce,135019804,668.2,671.5,6/6,"emoji=text, loss=bce, lr=2e-05, bs=16, max_len=128, seed=42",vinai/phobert-base@01daacda,3.27
+phobert_text_bce_ep12,135019804,1406.0,1412.1,12/12,"emoji=text, loss=bce, lr=2e-05, bs=16, max_len=128, seed=42",vinai/phobert-base@01daacda,3.27
+phobert_text_pw_sqrt,135019804,674.5,677.6,6/6,"emoji=text, loss=pw_sqrt, lr=2e-05, bs=16, max_len=128, seed=42",vinai/phobert-base@01daacda,3.27
+phobert_text_pw_sqrt_ep12,135019804,1232.2,6288.8,8/11,"emoji=text, loss=pw_sqrt, lr=2e-05, bs=16, max_len=128, seed=42",vinai/phobert-base@01daacda,3.27
+tfidf_lr,1053556,2.7,,-,"('word', 4, 'balanced')",-,
+bilstm,1377884,151.4,,-,bce; emb200 hid128 drop0.3 lr1e-3 bs64 maxlen100 vocab5128,-,

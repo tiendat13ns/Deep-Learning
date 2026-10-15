@@ -17,10 +17,17 @@ ati_final/
   notebooks/
     01_eda.ipynb          Phân tích dữ liệu (mục A giữa kì)
     02_tfidf_lr.ipynb     Baseline TF-IDF + One-vs-Rest Logistic Regression
+    03_bilstm.ipynb       Baseline BiLSTM (sigmoid + BCE)
+    04_phobert.ipynb      Bảng kết quả gộp 3 mô hình, chi phí, quét ngưỡng (đọc kết quả PhoBERT đã lưu)
+    05_analysis.ipynb     Trả lời câu hỏi giữa kì 1-4 và phân tích lỗi (chỉ đọc xác suất đã lưu)
   src/
     data.py               Nạp dữ liệu từ Hugging Face, nhãn multi-hot 28 chiều, nhóm head/mid/tail
     preprocess.py         Chuẩn hoá văn bản (<br>, HTML entity, Unicode NFC)
     metrics.py            Macro/Micro-F1, F1 từng nhãn, Hamming Loss, LRAP, mAP; lưu/đọc xác suất
+    segment.py            Tách từ tiếng Việt bằng VnCoreNLP (cho PhoBERT)
+    train_phobert.py      Fine-tune PhoBERT-base (chạy bằng dòng lệnh, xem mục PhoBERT)
+    features.py           Cờ kiểu văn bản (emoji, teencode, câu ngắn/dài) dùng cho phân tích theo nhóm
+    show_cases.py         In ca lỗi (kèm văn bản gốc) ra màn hình để đọc cục bộ, KHÔNG ghi file
   splits/                 id của train/val/test (không có văn bản) + label_tiers.json
   results/
     tables/               Bảng thống kê và kết quả (.csv)
@@ -75,7 +82,18 @@ jupyter nbconvert --to notebook --execute --inplace 01_eda.ipynb
 jupyter nbconvert --to notebook --execute --inplace 02_tfidf_lr.ipynb
 ```
 Hoặc mở trong VS Code/Jupyter và chạy lần lượt. Các notebook tự ghi kết quả vào `results/` và `splits/`.
-Các mô hình BiLSTM/GRU và PhoBERT sẽ được bổ sung (xem [PIPELINE.md](PIPELINE.md)).
+
+### PhoBERT
+
+Cần thêm **Java (>= 8)** để chạy VnCoreNLP (`java -version`). Lần đầu chạy, `src/segment.py` tự tải jar và model tách từ (~28 MB) vào `data/vncorenlp/`; PhoBERT (`vinai/phobert-base`, ~500 MB) tự tải từ Hugging Face.
+```bash
+# chạy từ thư mục ati_final; mỗi lần ~12-15 phút trên RTX 3060 Laptop 6 GB (đỉnh ~3,3 GB VRAM)
+python -m src.train_phobert --emoji text --loss bce        # cấu hình chính
+python -m src.train_phobert --emoji keep --loss bce        # đối chứng: giữ emoji (bị <unk> trong PhoBERT)
+python -m src.train_phobert --emoji text --loss pw_sqrt    # BCE có pos_weight = sqrt(#âm/#dương)
+# cấu hình đã chọn: thêm --epochs 12 --patience 3 --name phobert_text_pw_sqrt_ep12 (6 epoch chưa hội tụ)
+```
+Tokenizer của PhoBERT đưa **mọi emoji về `<unk>`**, nên cấu hình chính thay emoji bằng tên của nó (thư viện `emoji`). Kết quả: `results/preds/phobert_*.npz`, `results/tables/phobert_*_history.csv` và `phobert_*_cost.json` (số tham số, thời gian, revision checkpoint, siêu tham số). Checkpoint lưu ở `data/ckpt/` (không commit).
 
 ## Giao thức thực nghiệm (bắt buộc tuân thủ)
 
