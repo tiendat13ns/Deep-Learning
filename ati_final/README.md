@@ -20,6 +20,7 @@ ati_final/
     03_bilstm.ipynb       Baseline BiLSTM (sigmoid + BCE)
     04_phobert.ipynb      Bảng kết quả gộp 3 mô hình, chi phí, quét ngưỡng (đọc kết quả PhoBERT đã lưu)
     05_analysis.ipynb     Trả lời câu hỏi giữa kì 1-4 và phân tích lỗi (chỉ đọc xác suất đã lưu)
+    06_thresholds.ipynb   RQ1: hiệu chỉnh ngưỡng trên val, so sánh fixed/global/per-label trên cùng PhoBERT
   src/
     data.py               Nạp dữ liệu từ Hugging Face, nhãn multi-hot 28 chiều, nhóm head/mid/tail
     preprocess.py         Chuẩn hoá văn bản (<br>, HTML entity, Unicode NFC)
@@ -28,11 +29,14 @@ ati_final/
     train_phobert.py      Fine-tune PhoBERT-base (chạy bằng dòng lệnh, xem mục PhoBERT)
     features.py           Cờ kiểu văn bản (emoji, teencode, câu ngắn/dài) dùng cho phân tích theo nhóm
     show_cases.py         In ca lỗi (kèm văn bản gốc) ra màn hình để đọc cục bộ, KHÔNG ghi file
+    thresholds.py         Tìm ngưỡng chung/từng nhãn trên lưới cố định, chỉ dùng validation
+    analyze_thresholds.py Chạy RQ1 từ xác suất đã lưu; xuất bảng/hình, dự đoán và báo cáo
   splits/                 id của train/val/test (không có văn bản) + label_tiers.json
   results/
     tables/               Bảng thống kê và kết quả (.csv)
     figures/              Biểu đồ (.png)
     preds/                Xác suất dự đoán val/test của từng mô hình (.npz)
+    rq1/                  Bộ ngưỡng đã chốt + bảng/hình/dự đoán của so sánh ba cách giải mã
   reports/                Báo cáo tuần
   data/                   (tự sinh/tự tải, KHÔNG commit)
 ```
@@ -94,6 +98,30 @@ python -m src.train_phobert --emoji text --loss pw_sqrt    # BCE có pos_weight 
 # cấu hình đã chọn: thêm --epochs 12 --patience 3 --name phobert_text_pw_sqrt_ep12 (6 epoch chưa hội tụ)
 ```
 Tokenizer của PhoBERT đưa **mọi emoji về `<unk>`**, nên cấu hình chính thay emoji bằng tên của nó (thư viện `emoji`). Kết quả: `results/preds/phobert_*.npz`, `results/tables/phobert_*_history.csv` và `phobert_*_cost.json` (số tham số, thời gian, revision checkpoint, siêu tham số). Checkpoint lưu ở `data/ckpt/` (không commit).
+
+### RQ1: so sánh ngưỡng cố định, chung và riêng từng nhãn
+
+Phần này chạy trên CPU từ các xác suất PhoBERT đã có trong repo, không cần tải dữ liệu, đăng nhập Hugging Face hay huấn luyện lại. Cài riêng môi trường phân tích nếu chưa cần các thư viện train:
+
+```bash
+# từ ati_final/
+pip install -r requirements-analysis.txt
+python -m src.analyze_thresholds
+```
+
+Hoặc chạy `notebooks/06_thresholds.ipynb`. Có thể tách hai pha để kiểm tra bộ ngưỡng trước khi đánh giá:
+
+```bash
+python -m src.analyze_thresholds --mode calibrate
+python -m src.analyze_thresholds --mode evaluate
+python -m unittest discover -s tests -v
+```
+
+- Giữ mô hình giữa kì `phobert_text_pw_sqrt_ep12`, chọn theo Macro-F1 val tại 0,5. Cả ba cách giải mã dùng cùng xác suất và đủ 28 nhãn, gồm neutral.
+- Hai cách hiệu chỉnh dùng cùng lưới 0,05–0,90, bước 0,025. Ngưỡng chung tối đa Macro-F1 val; ngưỡng riêng tối đa F1 val của từng nhãn. Khi hòa điểm chọn gần 0,5 nhất, sau đó chọn ngưỡng nhỏ hơn.
+- `results/rq1/calibration.json` lưu bộ ngưỡng và hash nguồn trước khi mở xác suất test. Pha đánh giá chỉ áp ngưỡng đã chốt, kiểm tra nguồn val không đổi, thứ tự ID đúng và các split không trùng ID.
+- Kết quả ở `results/rq1/`: đủ chỉ số tổng hợp, F1/precision/recall/AP từng nhãn, head/mid/tail, cardinality, khoảng cách val–test, profile ngưỡng và NPZ có dự đoán của cả ba cách.
+- Báo cáo: [reports/rq1_threshold_comparison.md](reports/rq1_threshold_comparison.md). Test đã được phân tích ở giữa kì; đây là so sánh hậu nghiệm trên tập giữ lại, không phải một tập test mới hoàn toàn chưa được xem. Không thay lưới/ngưỡng dựa trên kết quả test.
 
 ## Giao thức thực nghiệm (bắt buộc tuân thủ)
 
