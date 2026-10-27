@@ -1,6 +1,6 @@
-# Tổng hợp tiến độ - ViGoEmotions (Midterm + RQ1)
+# Tổng hợp tiến độ - ViGoEmotions (Midterm)
 
-Cập nhật: 2026-10-22
+Cập nhật: 2026-10-15
 
 ## 1. Việc đã làm
 
@@ -19,8 +19,6 @@ Cập nhật: 2026-10-22
 | 11 | PhoBERT-base (VnCoreNLP + fine-tune) | Test Macro-F1 0,608, Micro-F1 0,624, Hamming 0,058, LRAP 0,753 (emoji→chữ, BCE + pos_weight căn bậc hai, 12 epoch); 135 triệu tham số | `src/segment.py`, `src/train_phobert.py`, `notebooks/04_phobert.ipynb` |
 | 12 | Bảng kết quả gộp + chi phí mô hình | 3 mô hình, đủ chỉ số mục C của đề | `results/tables/baseline_results.csv`, `model_cost.csv` |
 | 13 | Phân tích câu 1–4 + thống kê lỗi | PhoBERT giữ cấu trúc phụ thuộc nhãn (Spearman 0,90) nhưng dự đoán thừa nhãn; hơn BiLSTM ở mọi kiểu câu, rõ nhất ở câu dài/teencode | `notebooks/05_analysis.ipynb`, `results/error_cases/cases.csv` |
-| 14 | RQ1: ngưỡng riêng từng nhãn | Hiệu chỉnh 28 ngưỡng chỉ trên val, cùng lưới 0,05–0,90 bước 0,025; lưu ngưỡng trước khi đọc test; giữ nguyên backbone PhoBERT | `src/thresholds.py`, `src/analyze_thresholds.py`, `results/rq1/calibration.json` |
-| 15 | So sánh đủ ba cách đặt ngưỡng | Test Macro-F1 fixed/global/per-label: 0,6082 / 0,6125 / 0,6142. Global tốt hơn về Micro-F1 và Hamming Loss. Đã có chỉ số từng nhãn, nhóm tần suất, cardinality và gap val–test | `notebooks/06_thresholds.ipynb`, `results/rq1/`, `reports/rq1_threshold_comparison.md` |
 
 ## 2. Các quyết định đã chốt
 
@@ -52,12 +50,11 @@ Cập nhật: 2026-10-22
 
 | Vấn đề | Ghi chú |
 |--------|---------|
-| Nhóm \|Y\| ≥ 4 rất nhỏ | Test có 66 câu thuộc nhóm này. Đếm từ multi-hot: 55 câu 4 nhãn và 11 câu 5 nhãn; thống kê EDA cũ đếm danh sách có một nhãn lặp nên ghi 54/12. Phân tích RQ1 dùng multi-hot để đếm nhãn duy nhất |
+| Nhóm \|Y\| ≥ 4 rất nhỏ | Test chỉ có 54 mẫu 4 nhãn và 12 mẫu 5 nhãn → số liệu theo nhóm này nhiễu, cần nêu rõ khi báo cáo |
 | Chỉ số teencode/emoji | Là heuristic regex và danh sách từ viết tắt tự lập, không phải nhãn chuẩn |
 | BiLSTM thua TF-IDF + LR | Test Macro-F1 0,512 so với 0,548, mới chạy một seed nên chưa biết chênh lệch có vượt nhiễu không |
 | Chỉ một seed | Chênh lệch nhỏ giữa các cấu hình PhoBERT có thể nằm trong nhiễu |
-| RQ1 là so sánh hậu nghiệm | Test đã được xem ở giữa kì; lưới/tie rule lần này cố định trước khi đánh giá, chỉ fit trên val. Chênh per-label so với global chỉ +0,0017 Macro-F1 và gap val–test lớn hơn; chưa kiểm định ý nghĩa thống kê |
 
 ## 5. Chưa làm
 
-Hai phần ngưỡng riêng và so sánh đủ chỉ số đã triển khai. Còn: nhóm kiểm tra chéo `reports/error_analysis_notes.md`, hoàn thiện đánh giá định tính và slide giữa kì; viết báo cáo cuối kì dạng bài báo, thảo luận các ca thay đổi sau hiệu chỉnh ngưỡng và kiểm tra môi trường sạch. Chưa thay đổi các thực nghiệm huấn luyện giữa kì hoặc sửa notebook phân tích tương quan nhãn test. Xem [báo cáo RQ1](reports/rq1_threshold_comparison.md).
+Xem [PIPELINE.md](PIPELINE.md): nhóm kiểm tra chéo `reports/error_analysis_notes.md` (do Claude soạn), thử lr cho PhoBERT/BiLSTM, phân tích lỗi, slide, README.

@@ -1,9 +1,0 @@
-# CPU-only analysis of predictions already saved in the repository.
-# Use requirements.txt when also downloading data or training the models.
-numpy>=2.0
-pandas>=2.2
-scikit-learn>=1.5
-matplotlib>=3.8
-nbformat
-nbconvert
-ipykernel
