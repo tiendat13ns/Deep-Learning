@@ -1,0 +1,81 @@
+group,sample_id,label,cause_primary,cause_secondary,prediction_defensible,note
+fn_per_label,you005871,realization,near_synonym,threshold,no,Short surprised self-question with a flushed emoji; model reads it as confusion and loses embarrassment when its threshold rises to 0.80.
+fn_per_label,3956,joy,threshold,near_synonym,no,Excited reaction to a funny scene; joy scored 0.52 was correct at 0.5 but is cut by the per-label threshold 0.65.
+fn_per_label,6685,anger,near_synonym,noisy,partly,Crude insult about someone's looks; model chooses disgust and annoyance instead of anger.
+fn_per_label,24530,optimism,context,,no,Comment tagging a friend and praising an island as still unspoiled and cheap; model reads a complaint or question (curiosity/confusion/annoyance).
+fn_per_label,6892,disapproval,near_synonym,context,partly,Scolding advice to stop complaining; model reads it as caring advice (optimism/caring) rather than criticism.
+fn_per_label,tik001429,desire,noisy,,no,Heavily abbreviated teencode about matching items plus a heart-eyes emoji; love is found but desire is missed.
+fn_per_label,13384,disappointment,near_synonym,emoji,partly,Argument about delivery fraud ending with a laughing emoticon; model gives disapproval instead of disappointment.
+fn_per_label,6312,anger,context,,no,Very short dismissive remark about a household appliance; nothing lexical signals anger so model predicts neutral.
+fn_per_label,17275,disapproval,sarcasm,,no,Sarcastic remark contrasting the writer with successful classmates; model takes it literally as sadness and disappointment.
+fn_per_label,1493,sadness,keyword,,no,Lament about illness piling up; the phrase meaning 'what can one do' triggers confusion instead of sadness.
+fn_per_label,tik009836,remorse,threshold,gold,partly,Missing a late grandparent; remorse scored 0.55 was correct at 0.5 but per-label threshold 0.725 removes it (grief and sadness kept).
+fn_per_label,you000237,disgust,near_synonym,,partly,Heated historical-territory argument; model predicts anger/annoyance (and correct disapproval) but not disgust.
+fn_per_label,you002031,remorse,borderline,mixed,no,Long self-reflective post with four gold emotions; remorse at 0.49 is just below 0.5 and far below the tuned 0.725.
+fn_per_label,21390,relief,threshold,mixed,partly,Buddhist prayer for a deceased person's soul; relief scored 0.67 is lost under per-label 0.775 while spurious grief/optimism are also removed.
+fn_per_label,tik012731,nervousness,noisy,context,no,Three-word fragment with a typo and abbreviations about family and peer pressure; read as anger/annoyance.
+fn_per_label,you001290,gratitude,noisy,,no,List of self-help tips with line breaks ending in an explicit thank-you to the teacher; the gratitude cue at the end is missed (p=0.08).
+fn_per_label,tik012189,remorse,near_synonym,emoji,partly,Story of a lost friendship after a quarrel; model predicts sadness/disappointment but not remorse.
+fn_per_label,20465,approval,noisy,context,no,Dialect-heavy teasing reply; model hallucinates fear/nervousness/sadness and misses approval.
+fn_per_label,5214,disapproval,near_synonym,,partly,Violent call to punish thieves with an angry emoji; anger found but disapproval missed.
+fn_per_label,23116,pride,keyword,threshold,partly,Remark that the writer luckily has only sons; the 'how lucky' cue triggers relief and joy (0.65 threshold) is dropped.
+fp_per_label,3018,disapproval,gold,,yes,Complaint about illegal parking telling the owner to call the authorities; disapproval is a reasonable label missing from gold.
+fp_per_label,tik001408,confusion,near_synonym,noisy,partly,Unaccented short question asking whether others see something; confusion vs curiosity.
+fp_per_label,1514,amusement,emoji,,no,Short remark on the benefit of holding one's view with a smiling emoji; emoji pushes amusement.
+fp_per_label,3900,excitement,near_synonym,emoji,partly,Amazement that a device breaks every lock with deadpan emojis; excitement added next to correct admiration/surprise.
+fp_per_label,17525,neutral,noisy,context,no,Two-word unaccented agreement ('right'); predicted neutral while approval (correct at 0.5) is cut by the 0.70 threshold.
+fp_per_label,14181,amusement,context,,no,Says they just watched it and tags a friend; no emotional cue so the model guesses amusement/excitement.
+fp_per_label,2100,nervousness,sarcasm,keyword,no,Self-deprecating joke about falling into a river; fear words trigger fear/nervousness.
+fp_per_label,4978,annoyance,threshold,near_synonym,yes,Hostile remark wishing harm on reckless people; annoyance (0.41) is added only because its threshold drops to 0.325 and is close to gold anger.
+fp_per_label,5960,grief,keyword,gold,partly,Two-word expression of pity; the pity word maps to grief/sadness; gold (caring/nervousness/annoyance) is hard to justify from the text.
+fp_per_label,3096,amusement,sarcasm,gold,partly,Joke about planning baby names after a crush liked a photo; amusement is plausible though absent from gold and spurious sadness is added.
+fp_per_label,tik024213,joy,emoji,,partly,Humorous quote from a teacher with an affectionate emoji; joy added next to correct amusement.
+fp_per_label,you003269,embarrassment,near_synonym,gold,yes,Fear of speaking up in a new environment to avoid looking like a show-off; embarrassment is defensible.
+fp_per_label,19722,annoyance,keyword,threshold,no,Praise followed by a joking critique; the 'criticise' cue plus the lowered 0.325 threshold yields annoyance and disapproval.
+fp_per_label,you000924,joy,near_synonym,emoji,yes,Long enthusiastic thank-you with many heart-eyes emojis; joy is defensible next to gold excitement/gratitude.
+fp_per_label,2135,approval,near_synonym,,yes,Short praise that a film is meaningful; approval is defensible next to admiration.
+fp_per_label,4058,confusion,keyword,,no,Speculation introduced by 'who knows'; the hedge word triggers confusion.
+fp_per_label,tik014279,excitement,context,,no,A song title with an exclamation mark and a pointer to YouTube; needs context to see the curiosity.
+fp_per_label,4980,excitement,keyword,,no,Asks a friend to find a spider described as romantic; 'romantic' pulls love/desire/excitement.
+fp_per_label,6107,remorse,sarcasm,gold,no,Bitter sarcastic agreement about trusting people too much; model predicts remorse/sadness while gold says approval/nervousness.
+fp_per_label,you000845,realization,threshold,mixed,partly,Long story about emigrating and restarting with fear and gratitude; realization at 0.49 appears only because its threshold drops to 0.40.
+fn_introduced,1229,remorse,threshold,near_synonym,no,Short hurt remark with a sad emoticon; remorse 0.67 correct at 0.5 is dropped by the 0.725 threshold.
+fn_introduced,15225,excitement,threshold,borderline,no,Congratulations on someone's luck; excitement at 0.51 falls below the 0.525 threshold.
+fn_introduced,2411,grief,threshold,,no,Crying over losing a partner; grief 0.83 is below the 0.875 threshold.
+fn_introduced,you005912,remorse,threshold,,no,Admits they should not have said something with a sad face; explicit remorse at 0.70 is cut by 0.725.
+fn_introduced,4730,anger,threshold,near_synonym,no,Insult about a dirty house; anger 0.63 is cut by 0.675 while disgust/annoyance stay.
+fn_introduced,31627,approval,threshold,borderline,no,A two-token '10 points' rating; approval at 0.69 is just under 0.70.
+fn_introduced,12783,caring,threshold,,no,Parent moved to tears and pitying children; explicit caring at 0.64 is cut by 0.75.
+fn_introduced,11784,joy,threshold,noisy,no,Short abbreviated praise; joy 0.62 is cut by 0.65.
+fn_introduced,tik011486,sadness,threshold,,no,Regret that one's life went wrong; sadness 0.52 is cut by 0.60.
+fn_introduced,x000694,relief,threshold,,no,Advice to let go for inner peace; explicit relief at 0.53 is cut by 0.775.
+fp_introduced,157,disgust,threshold,sarcasm,no,Boastful 'nobody fools me' joke; disgust at 0.46 enters under the 0.45 threshold.
+fp_introduced,12544,realization,threshold,gold,yes,Calls a story a lesson for pushy parents; realization is defensible.
+fp_introduced,1857,realization,threshold,noisy,no,Garbled teasing fragment; realization at 0.46 enters under 0.40.
+fp_introduced,2821,annoyance,threshold,near_synonym,yes,Calls to jail polluters; annoyance is close to gold disgust/disapproval.
+fp_introduced,1772,annoyance,threshold,near_synonym,yes,Worry that an invasive shrimp kills native species; annoyance next to gold anger/disgust.
+fp_introduced,997,annoyance,threshold,keyword,partly,Says someone's face looks tiresome; the 'bored' word drives disappointment/sadness and annoyance enters at 0.41.
+fp_introduced,4717,disgust,threshold,near_synonym,yes,Criticises careless pet owners; disgust next to gold annoyance.
+fp_introduced,x001265,desire,threshold,,partly,Crypto question about a coin's future; desire at 0.47 enters under 0.40.
+fp_introduced,2129,annoyance,threshold,near_synonym,yes,Violent punishment wish for a harasser; annoyance next to gold disgust/anger.
+fp_introduced,tik018661,annoyance,threshold,emoji,no,A single see-no-evil monkey emoji; nothing passes 0.5 but annoyance passes 0.325 (gold embarrassment).
+fn_recovered,1984,desire,threshold,,yes,Gushing over a baby girl and joking about wanting one; desire 0.45 recovered by the 0.40 threshold.
+fn_recovered,13417,neutral,threshold,,yes,Factual explanation of a driver's action; neutral 0.48 recovered by 0.475.
+fn_recovered,24606,disapproval,threshold,,yes,Long complaint that an island is overrated; disapproval 0.46 recovered by 0.375.
+fn_recovered,4079,annoyance,threshold,sarcasm,yes,Bitter joke about being single; annoyance 0.49 recovered by 0.325.
+fn_recovered,13767,disgust,threshold,noisy,yes,Short noisy remark about a beating; disgust just under 0.5 recovered by 0.45 (annoyance also added).
+fp_removed,4710,grief,threshold,emoji,yes,Funny story about a cat that no longer recognises its owner; spurious grief 0.80 removed by 0.875.
+fp_removed,1138,confusion,threshold,,partly,Surprise at a strange injury; confusion removed but fear now added under the 0.425 threshold.
+fp_removed,24513,disappointment,threshold,noisy,partly,Dialect-spelled teasing reply (gold neutral); disappointment removed but disapproval added under 0.375.
+fp_removed,you004981,gratitude,threshold,,yes,Relief after an explanation with a laughing emoji; spurious gratitude 0.65 removed by 0.85.
+fp_removed,18212,optimism,threshold,gold,partly,Condolences hoping the truth comes out; optimism 0.53 removed by 0.65 though it is arguably present.
+multi_label,16719,,gold,sarcasm,partly,Violent joke with a cold-face emoji; gold mixes amusement/fear/grief/disgust; model predicts anger/annoyance (+disgust under per-label). 1 of 4 gold labels found at best.
+multi_label,tik016784,,mixed,,partly,Self-mocking list of looks causing fear in class; 3 of 4 gold labels found by all decoders; disgust missed and sadness added.
+multi_label,18541,,noisy,mixed,no,Long teencode story about a husband's quiet protectiveness; only realization of 5 gold labels found by all decoders.
+multi_label,you002748,,mixed,,partly,Message to a partner with HTML line breaks and thanks to the creator; 3 of 5 gold labels found; relief and sadness missed.
+multi_label,18288,,mixed,,partly,Condolence for a child; love/caring found but explicit grief and sadness missed by all decoders.
+multi_label,you002161,,mixed,threshold,partly,Long confession after a family quarrel ending in thanks; fixed finds 3 of 4 while per-label drops gratitude (threshold 0.85).
+multi_label,tik012624,,mixed,emoji,partly,"Fear of a mother's punishment after breaking a screen; fear/nervousness found, remorse and sadness missed."
+multi_label,6293,,mixed,,partly,"Wants to adopt a pet but fears not caring for it well; love/desire found, fear/nervousness missed; global also drops desire."
+multi_label,5081,,sarcasm,emoji,no,Ironic remark that a fine was only five million with a ':v' emoticon; amusement/surprise/anger missed.
+multi_label,3249,,mixed,,partly,"Motivation to support family and be independent; optimism/pride found, desire/caring missed."

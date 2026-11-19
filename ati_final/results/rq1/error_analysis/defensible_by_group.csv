@@ -1,0 +1,8 @@
+group,no,partly,yes
+fn_introduced,10,0,0
+fn_per_label,11,9,0
+fn_recovered,0,0,5
+fp_introduced,3,2,5
+fp_per_label,9,6,5
+fp_removed,0,3,2
+multi_label,2,8,0

@@ -15,3 +15,7 @@ jupyter
 nbformat
 nbconvert
 ipykernel
+# Chỉ để sinh báo cáo cuối kì (reports/final_report/): cần thêm Microsoft Word trên Windows
+python-docx>=1.1
+latex2mathml>=3.77
+lxml>=5.0

@@ -1,0 +1,12 @@
+cause_primary,fn_per_label,fp_per_label,fn_introduced,fp_introduced,fn_recovered,fp_removed,multi_label,total
+Decision flipped by the tuned threshold,3,2,10,10,5,5,0,35
+Near-synonymous labels,7,5,0,0,0,0,0,12
+Mixed or secondary emotions,0,0,0,0,0,0,7,7
+"Teencode, dialect or noisy text",4,1,0,0,0,0,1,6
+Lexical cue / keyword trap,2,4,0,0,0,0,0,6
+Sarcasm or dark humour,1,3,0,0,0,0,1,5
+Missing context / very short,2,2,0,0,0,0,0,4
+Emoji or emoticon cue,0,2,0,0,0,0,0,2
+Questionable or incomplete gold label,0,1,0,0,0,0,1,2
+Borderline score near 0.5,1,0,0,0,0,0,0,1
+total,20,20,10,10,5,5,10,80

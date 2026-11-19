@@ -1,0 +1,50 @@
+{
+ "name": "phobert_text_pw_sqrt_ep12_seed43",
+ "checkpoint": "vinai/phobert-base",
+ "revision": "01daacda68afe13d83023d16ec647239e344a1e6",
+ "n_params": 135019804,
+ "train_seconds": 1560.0,
+ "best_epoch": 12,
+ "epochs_run": 12,
+ "peak_gpu_gb": 3.26,
+ "args": {
+  "emoji": "text",
+  "loss": "pw_sqrt",
+  "epochs": 12,
+  "patience": 3,
+  "bs": 16,
+  "lr": 2e-05,
+  "wd": 0.01,
+  "warmup": 0.1,
+  "max_len": 128,
+  "seed": 43,
+  "limit": 0,
+  "name": "phobert_text_pw_sqrt_ep12_seed43"
+ },
+ "unk_rate": 0.0007556545418815096,
+ "torch": "2.14.1+cu126",
+ "transformers": "5.17.0",
+ "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+ "test": {
+  "macro_f1": 0.6092484591542485,
+  "micro_f1": 0.6240340463657744,
+  "hamming_loss": 0.058003317437279704,
+  "lrap": 0.7512195110321045,
+  "mAP": 0.6319056019027695,
+  "subset_acc": 0.24431543299467828,
+  "macro_f1_head": 0.6412915871559657,
+  "macro_f1_mid": 0.6086755844582515,
+  "macro_f1_tail": 0.5699106425220981
+ },
+ "val": {
+  "macro_f1": 0.6097400893200119,
+  "micro_f1": 0.6219498354329815,
+  "hamming_loss": 0.05758193887429124,
+  "lrap": 0.7468173503875732,
+  "mAP": 0.6229251553003488,
+  "subset_acc": 0.24298160696999033,
+  "macro_f1_head": 0.6326137682159635,
+  "macro_f1_mid": 0.6055424405800192,
+  "macro_f1_tail": 0.5863950516250631
+ }
+}

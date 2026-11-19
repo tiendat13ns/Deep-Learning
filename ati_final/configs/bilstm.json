@@ -1,0 +1,20 @@
+{
+ "notebook": "notebooks/03_bilstm.ipynb",
+ "seed": 42,
+ "embedding_dim": 200,
+ "hidden_per_direction": 128,
+ "pooling": "concat(max, mean) over time",
+ "dropout": 0.3,
+ "max_len": 100,
+ "optimizer": "Adam",
+ "lr": 0.001,
+ "batch_size": 64,
+ "grad_clip": 1.0,
+ "max_epochs": 30,
+ "early_stopping": {
+  "metric": "val Macro-F1 at 0.5",
+  "patience": 4
+ },
+ "loss": "BCEWithLogits",
+ "vocab": "built from training set"
+}

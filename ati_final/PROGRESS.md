@@ -1,6 +1,6 @@
-# Tổng hợp tiến độ - ViGoEmotions (Midterm)
+# Tổng hợp tiến độ - ViGoEmotions (Midterm + RQ1)
 
-Cập nhật: 2026-10-15
+Cập nhật: 2026-11-19 (RQ1 hoàn tất mục A–C; khôi phục từ commit `53c8bdd`, đã bị revert ở `7c38959` để giữ bản giữa kì gọn khi thuyết trình)
 
 ## 1. Việc đã làm
 
@@ -19,12 +19,16 @@ Cập nhật: 2026-10-15
 | 11 | PhoBERT-base (VnCoreNLP + fine-tune) | Test Macro-F1 0,608, Micro-F1 0,624, Hamming 0,058, LRAP 0,753 (emoji→chữ, BCE + pos_weight căn bậc hai, 12 epoch); 135 triệu tham số | `src/segment.py`, `src/train_phobert.py`, `notebooks/04_phobert.ipynb` |
 | 12 | Bảng kết quả gộp + chi phí mô hình | 3 mô hình, đủ chỉ số mục C của đề | `results/tables/baseline_results.csv`, `model_cost.csv` |
 | 13 | Phân tích câu 1–4 + thống kê lỗi | PhoBERT giữ cấu trúc phụ thuộc nhãn (Spearman 0,90) nhưng dự đoán thừa nhãn; hơn BiLSTM ở mọi kiểu câu, rõ nhất ở câu dài/teencode | `notebooks/05_analysis.ipynb`, `results/error_cases/cases.csv` |
+| 14 | RQ1: ngưỡng riêng từng nhãn | Hiệu chỉnh 28 ngưỡng chỉ trên val, cùng lưới 0,05–0,90 bước 0,025; lưu ngưỡng trước khi đọc test; giữ nguyên backbone PhoBERT | `src/thresholds.py`, `src/analyze_thresholds.py`, `results/rq1/calibration.json` |
+| 15 | So sánh đủ ba cách đặt ngưỡng | Test Macro-F1 fixed/global/per-label: 0,6082 / 0,6125 / 0,6142. Global tốt hơn về Micro-F1 và Hamming Loss. Đã có chỉ số từng nhãn, nhóm tần suất, cardinality và gap val–test. Chạy lại ngày 18/11 trên máy hiện tại (Python 3.12, sklearn 1.9): bảng, ngưỡng và NPZ trùng khớp hoàn toàn; 10/10 unit test pass | `notebooks/06_thresholds.ipynb`, `results/rq1/`, `reports/rq1_threshold_comparison.md`, `tests/test_thresholds.py` |
+| 16 | RQ1: độ tin cậy | Bootstrap ghép cặp 10.000 lần trên test: không chênh lệch Macro-F1 nào loại trừ 0, chỉ việc giảm Hamming của global/per-label là chắc chắn. Thêm seed 43, 44 (cùng cấu hình): fixed / global / per-label = 0,6036 ± 0,0088 / 0,6098 ± 0,0058 / 0,6115 ± 0,0031; per-label − global = +0,0017 ± 0,0032, đổi dấu ở seed 43; gap val–test của per-label khoảng +0,016 ở cả 3 seed; ngưỡng một nhãn dao động trung bình 0,175 giữa các seed | `src/rq1_audit.py`, `results/rq1/tables/bootstrap_deltas.csv`, `seed_*.csv`, `results/rq1/seeds/`, `figures/seed_robustness.png` |
+| 17 | RQ1 mục C: phân tích lỗi | Đếm lỗi, quyết định bị ngưỡng lật theo nhãn, cặp nhãn nhầm, dự đoán thiếu/thừa theo số nhãn; đọc tay 80 ca mới (20 FN, 20 FP, 10+10 ca do ngưỡng sinh ra, 5+5 ca được sửa, 10 câu ≥4 nhãn) | `notebooks/07_rq1_robustness_errors.ipynb`, `results/rq1/error_analysis/`, `reports/rq1_final_analysis.md`, `tests/test_rq1_audit.py` (13/13 test pass) |
 
 ## 2. Các quyết định đã chốt
 
 | Vấn đề | Quyết định | Lý do |
 |--------|-----------|-------|
-| Split | Dùng split chính thức của dataset: 16.531 / 2.066 / 2.067 | Cùng split với paper nên so sánh được; không trùng id; phân bố nhãn ổn định |
+| Split | Dùng split chính thức của dataset: 16.531 / 2.066 / 2.067 | Cùng split với paper nên so sánh được; không trùng id. **Không phải split phân tầng** (paper chỉ nói 8:1:1): test cân bằng nhãn tốt, val lệch nhẹ ở 4/28 nhãn |
 | Số nhãn | 28 cột (27 cảm xúc + `neutral`, index 27) | Theo README của dataset |
 | Nhóm tần suất | Dựa trên số mẫu dương ở **train**: head ≥ 1000, mid 750–999, tail < 750 → 10 / 10 / 8 nhãn | Định nghĩa trước khi nhìn test, đúng yêu cầu cuối kì |
 | Seed | 42 (`SEED` trong `src/data.py`) | Yêu cầu tái lập |
@@ -50,11 +54,18 @@ Cập nhật: 2026-10-15
 
 | Vấn đề | Ghi chú |
 |--------|---------|
-| Nhóm \|Y\| ≥ 4 rất nhỏ | Test chỉ có 54 mẫu 4 nhãn và 12 mẫu 5 nhãn → số liệu theo nhóm này nhiễu, cần nêu rõ khi báo cáo |
+| Nhóm \|Y\| ≥ 4 rất nhỏ | Test có 66 câu thuộc nhóm này. Đếm từ multi-hot: 55 câu 4 nhãn và 11 câu 5 nhãn; thống kê EDA cũ đếm danh sách có một nhãn lặp nên ghi 54/12. Phân tích RQ1 dùng multi-hot để đếm nhãn duy nhất |
 | Chỉ số teencode/emoji | Là heuristic regex và danh sách từ viết tắt tự lập, không phải nhãn chuẩn |
 | BiLSTM thua TF-IDF + LR | Test Macro-F1 0,512 so với 0,548, mới chạy một seed nên chưa biết chênh lệch có vượt nhiễu không |
-| Chỉ một seed | Chênh lệch nhỏ giữa các cấu hình PhoBERT có thể nằm trong nhiễu |
+| Chỉ một seed (giữa kì) | Chênh lệch nhỏ giữa các cấu hình PhoBERT giữa kì có thể nằm trong nhiễu. RQ1 đã có 3 seed cho mô hình chính, các mô hình khác vẫn một seed |
+| RQ1 là so sánh hậu nghiệm | Test đã được xem ở giữa kì; lưới/tie rule cố định trước khi đánh giá, chỉ fit trên val. Seed 43/44 train sau khi đã thấy kết quả seed 42 nhưng dùng đúng cấu hình đã chốt, chỉ để đo độ biến thiên |
+| Phân loại nguyên nhân 80 ca | Do Claude đọc và gán, mỗi ca một người đọc; nhóm cần đọc lại `results/rq1/error_analysis/annotations.csv` |
 
 ## 5. Chưa làm
 
-Xem [PIPELINE.md](PIPELINE.md): nhóm kiểm tra chéo `reports/error_analysis_notes.md` (do Claude soạn), thử lr cho PhoBERT/BiLSTM, phân tích lỗi, slide, README.
+RQ1 (mục A, B, C của đề) đã xong; kết luận ở [reports/rq1_final_analysis.md](reports/rq1_final_analysis.md). Còn cho bài nộp cuối kì (xem `ATI_Submission_Guide.pdf`):
+
+- **Báo cáo** trên `ATI_Final_Report_Template.docx`, tiếng Anh, phần thân 15–20 trang, trích dẫn IEEE; Phụ lục B (% đóng góp, nhóm tự điền) và Phụ lục C (khai báo dùng Claude).
+- **Slide giữa kì** v2 xuất PDF, thêm mã lớp `62FIT4ATI-CLC02` ở slide 1.
+- **Đóng gói** `62FIT4ATI-CLC02_G03_P02.zip`: `results/environment.md`, `configs/`, `results/predictions/`, README ghi notebook nào sinh bảng/hình nào, link GitHub; kiểm tra chạy lại trong môi trường sạch.
+- Nhóm đọc lại phần gán nguyên nhân 80 ca và chọn người đại diện nộp bài.

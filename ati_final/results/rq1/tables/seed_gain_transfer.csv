@@ -1,0 +1,4 @@
+seed,run,spearman_val_gain_vs_test_gain,labels_val_gain_positive,labels_test_gain_positive,labels_test_gain_negative,mean_val_gain,mean_test_gain
+42,phobert_text_pw_sqrt_ep12,0.08621869521003597,27,14,12,0.02277176198467981,0.005979252853595354
+43,phobert_text_pw_sqrt_ep12_seed43,-0.1842321379687928,26,13,13,0.02088663875217086,0.0029920614719903533
+44,phobert_text_pw_sqrt_ep12_seed44,0.3052285792499316,26,20,6,0.026451068412992707,0.014669749040205361

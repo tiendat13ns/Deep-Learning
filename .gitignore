@@ -8,3 +8,6 @@ data/
 
 .ipynb_checkpoints/
 __pycache__/
+
+# Thư mục nộp bài cuối kì (sinh bằng ati_final/reports/final_report/build_submission.py)
+submission/

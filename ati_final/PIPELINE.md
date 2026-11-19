@@ -1,5 +1,7 @@
 # Pipeline chuẩn bị giữa kì - ViGoEmotions
 
+> Cập nhật 22/10/2026: đã bổ sung RQ1 ở `notebooks/06_thresholds.ipynb` và `src/analyze_thresholds.py`: hiệu chỉnh ngưỡng riêng trên val, so sánh fixed/global/per-label với đủ chỉ số, head/mid/tail, cardinality và gap val–test. Kết quả và giới hạn xem [reports/rq1_threshold_comparison.md](reports/rq1_threshold_comparison.md). Các mục slide, kiểm tra chéo lỗi và báo cáo cuối kì dạng bài báo vẫn chưa hoàn tất.
+
 Mục tiêu: nộp đủ mục E của đề (slide, notebook, bảng/hình, bảng kết quả baseline, phân tích lỗi, câu hỏi nghiên cứu cho cuối kì, README).
 Trạng thái: ✅ xong · 🟡 làm một phần · ⬜ chưa làm.
 

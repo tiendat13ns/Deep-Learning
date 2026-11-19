@@ -1,0 +1,32 @@
+{
+  "run": "phobert_text_pw_sqrt_ep12_seed44",
+  "calibration_sha256": "233167e297049d52f795a1c0679c66af1a290cc13a2cafc005814b80ca1c6ef0",
+  "prediction_sha256": {
+    "val": "bd0dea8cc347fe4ed784e4dbe31df9695ea69c53d15a4504bcfecd5165b015a2",
+    "test": "86e8ad4c40799ffb5035b6e39b3cc39b9641361ef3065928afe5e6875aa67ac0"
+  },
+  "python": "3.12.4",
+  "numpy": "2.5.0",
+  "pandas": "3.0.6",
+  "scikit_learn": "1.9.0",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "evaluation_device": "CPU",
+  "backbone_retrained": false,
+  "checkpoint": "vinai/phobert-base",
+  "checkpoint_revision": "01daacda68afe13d83023d16ec647239e344a1e6",
+  "training_args": {
+    "emoji": "text",
+    "loss": "pw_sqrt",
+    "epochs": 12,
+    "patience": 3,
+    "bs": 16,
+    "lr": 2e-05,
+    "wd": 0.01,
+    "warmup": 0.1,
+    "max_len": 128,
+    "seed": 44,
+    "limit": 0,
+    "name": "phobert_text_pw_sqrt_ep12_seed44"
+  },
+  "test_caveat": "These held-out predictions were already inspected during Midterm; this is a post-hoc comparison, not a newly untouched test set."
+}

@@ -1,0 +1,4 @@
+,tổng cặp dự đoán,tổng cặp thật,precision (378 cặp),recall (378 cặp)
+TF-IDF+LR,5056.0,2466.0,0.2,0.41
+BiLSTM,2414.0,2466.0,0.292,0.285
+PhoBERT,4741.0,2466.0,0.246,0.473

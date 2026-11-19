@@ -1,0 +1,26 @@
+{
+ "script": "python -m src.train_phobert",
+ "checkpoint": "vinai/phobert-base",
+ "revision": "01daacda68afe13d83023d16ec647239e344a1e6",
+ "emoji": "text",
+ "loss": "pw_sqrt",
+ "pos_weight": "sqrt(N_neg/N_pos) per label, train labels",
+ "epochs_max": 12,
+ "patience": 3,
+ "batch_size": 16,
+ "lr": 2e-05,
+ "weight_decay": 0.01,
+ "warmup_ratio": 0.1,
+ "max_len": 128,
+ "seed": 43,
+ "optimizer": "AdamW",
+ "precision": "fp16 autocast",
+ "word_segmentation": "VnCoreNLP",
+ "early_stopping_metric": "val Macro-F1 at 0.5",
+ "command": "python -m src.train_phobert --emoji text --loss pw_sqrt --epochs 12 --patience 3 --seed 43 --name phobert_text_pw_sqrt_ep12_seed43",
+ "observed": {
+  "best_epoch": 12,
+  "epochs_run": 12,
+  "peak_gpu_gb": 3.26
+ }
+}

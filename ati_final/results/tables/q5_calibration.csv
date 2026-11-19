@@ -1,0 +1,5 @@
+model,ECE (val),xác suất TB,tỉ lệ nhãn dương thật
+TF-IDF+LR,0.0767,0.1451,0.0684
+BiLSTM,0.0284,0.0802,0.0684
+PhoBERT,0.0396,0.1081,0.0684
+PhoBERT (BCE thường),0.016,0.073,0.0684

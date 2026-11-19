@@ -1,0 +1,11 @@
+,primary_or_secondary
+Decision flipped by the tuned threshold,39
+Near-synonymous labels,20
+"Teencode, dialect or noisy text",12
+Mixed or secondary emotions,11
+Emoji or emoticon cue,10
+Questionable or incomplete gold label,9
+Missing context / very short,8
+Sarcasm or dark humour,8
+Lexical cue / keyword trap,8
+Borderline score near 0.5,3

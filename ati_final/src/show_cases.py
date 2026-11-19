@@ -21,9 +21,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--group", required=True)
     ap.add_argument("--n", type=int, default=0, help="chỉ in n ca đầu (0 = tất cả)")
+    ap.add_argument("--cases", default="results/error_cases/cases.csv",
+                    help="file ca; RQ1 cuối kì: results/rq1/error_analysis/cases.csv")
     a = ap.parse_args()
     # đọc mọi cột là chuỗi và không đổi ô rỗng thành NaN (ca không dự đoán nhãn nào có pred_labels rỗng)
-    cases = pd.read_csv(ROOT / "results" / "error_cases" / "cases.csv", dtype=str, keep_default_na=False)
+    cases = pd.read_csv(ROOT / a.cases, dtype=str, keep_default_na=False)
+    if "pred_labels" not in cases.columns:  # file ca RQ1: in dự đoán của cả ba cách giải mã
+        cases["pred_labels"] = ("fixed: " + cases.pred_fixed + " | global: " + cases.pred_global
+                                + " | per-label: " + cases.pred_per_label)
     sub = cases[cases.group == a.group]
     if sub.empty:
         raise SystemExit(f"Không có nhóm '{a.group}'. Các nhóm: {sorted(cases.group.unique())}")

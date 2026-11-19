@@ -1,0 +1,81 @@
+{
+ "scripts": [
+  "python -m src.analyze_thresholds",
+  "python -m src.rq1_audit"
+ ],
+ "notebooks": [
+  "notebooks/06_thresholds.ipynb",
+  "notebooks/07_rq1_robustness_errors.ipynb"
+ ],
+ "model_runs": [
+  "phobert_text_pw_sqrt_ep12",
+  "phobert_text_pw_sqrt_ep12_seed43",
+  "phobert_text_pw_sqrt_ep12_seed44"
+ ],
+ "backbone_retrained": false,
+ "calibration_split": "val",
+ "grid": [
+  0.05,
+  0.075,
+  0.1,
+  0.125,
+  0.15,
+  0.175,
+  0.2,
+  0.225,
+  0.25,
+  0.275,
+  0.3,
+  0.325,
+  0.35,
+  0.375,
+  0.4,
+  0.425,
+  0.45,
+  0.475,
+  0.5,
+  0.525,
+  0.55,
+  0.575,
+  0.6,
+  0.625,
+  0.65,
+  0.675,
+  0.7,
+  0.725,
+  0.75,
+  0.775,
+  0.8,
+  0.825,
+  0.85,
+  0.875,
+  0.9
+ ],
+ "tie_rule": "closest_to_0.5_then_smaller; no_validation_positives_use_0.5",
+ "objective_global": "maximum validation Macro-F1 on the declared grid",
+ "objective_per_label": "maximum validation F1 for each label on the same grid",
+ "frozen_thresholds": "results/rq1/calibration.json (seed 42), results/rq1/seeds/<run>/calibration.json",
+ "tiers": {
+  "head_min_train_positives": 1000,
+  "tail_max_train_positives": 750
+ },
+ "bootstrap": {
+  "resamples": 10000,
+  "seed": 42,
+  "unit": "test comment, paired across decoders",
+  "interval": "percentile 95%"
+ },
+ "error_audit_sample": {
+  "seed": 42,
+  "groups": {
+   "fn_per_label": 20,
+   "fp_per_label": 20,
+   "fn_introduced": 10,
+   "fp_introduced": 10,
+   "fn_recovered": 5,
+   "fp_removed": 5,
+   "multi_label": 10
+  },
+  "excluded": "70 Midterm audit ids"
+ }
+}

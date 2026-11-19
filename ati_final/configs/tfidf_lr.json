@@ -1,0 +1,21 @@
+{
+ "notebook": "notebooks/02_tfidf_lr.ipynb",
+ "seed": 42,
+ "preprocess": "src.preprocess.normalize",
+ "features": {
+  "word": {
+   "lowercase": true,
+   "token_pattern": "(?u)\\b\\w+\\b|[^\\w\\s]",
+   "ngram_range": [
+    1,
+    2
+   ],
+   "min_df": 2,
+   "sublinear_tf": true
+  }
+ },
+ "classifier": "OneVsRest(LogisticRegression(solver='liblinear', max_iter=200))",
+ "C": 4,
+ "class_weight": "balanced",
+ "selection": "grid over features {word, word+char} x C x class_weight on validation Macro-F1 at 0.5 (results/tables/tfidf_lr_grid_val.csv)"
+}

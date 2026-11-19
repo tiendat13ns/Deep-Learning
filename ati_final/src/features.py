@@ -8,7 +8,8 @@ import re
 import pandas as pd
 
 EMOJI = re.compile("[\U0001F300-\U0001FAFF☀-➿\U0001F000-\U0001F2FF⭐❤]")
-ELONG = re.compile(r"(.)\1{2,}")  # ký tự lặp >= 3 lần ("caoooo", "hahaha")
+ELONG = re.compile(r"([^\W\d_])\1{2,}", re.I)  # CHỮ CÁI lặp >= 3 lần ("caoooo"); dấu câu/emoji lặp không tính
+REPUNC = re.compile(r"[!?.]{2,}")  # dấu câu lặp ("...", "!!!", "?!")
 TEEN = {'ko', 'k', 'kh', 'hok', 'hong', 'dc', 'đc', 'dk', 'vs', 'vl', 'vcl', 'cx', 'cg', 'bt', 'bik', 'biet', 'wa', 'r', 'rùi',
         'ntn', 'mn', 'ae', 'ok', 'oke', 'j', 'z', 'zậy', 'trc', 'sg', 'nc', 'nhìu', 'nhiu', 'thik', 'iu', 'cmt', 'sv', 'hnay',
         'mik', 'mìk'}
@@ -17,7 +18,7 @@ LONG_MIN = 30   # câu dài: >= 30 token
 
 
 def text_flags(texts) -> pd.DataFrame:
-    """Trả về DataFrame theo thứ tự `texts`: n_tok, n_emoji, emoji, elong, teencode, short, long."""
+    """Trả về DataFrame theo thứ tự `texts`: n_tok, n_emoji, emoji, elong, repunc, teencode, short, long."""
     rows = []
     for t in texts:
         t = str(t)
@@ -27,6 +28,7 @@ def text_flags(texts) -> pd.DataFrame:
             "n_tok": n_tok,
             "n_emoji": len(EMOJI.findall(t)),
             "elong": bool(ELONG.search(t)),
+            "repunc": bool(REPUNC.search(t)),
             "teencode": any(w in TEEN for w in toks),
         })
     df = pd.DataFrame(rows)

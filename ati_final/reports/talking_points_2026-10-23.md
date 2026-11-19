@@ -57,7 +57,7 @@ Các phát hiện nên nói:
 |---|---|
 | Sao không dùng độ chính xác "đúng cả 28 nhãn"? | Quá khắt khe cho đa nhãn; một nhãn sai là tính sai cả câu. Dùng Macro/Micro-F1 như đề yêu cầu. Subset accuracy vẫn tính để tham khảo. |
 | Sao BiLSTM thua TF-IDF? | Giả thuyết: ít dữ liệu để học embedding từ đầu. Chưa kiểm chứng; chưa thử embedding tiền huấn luyện hay GRU. |
-| Sao dùng split chính thức, không tự chia? | Trùng split của paper nên so sánh được; đã kiểm tra không trùng id và phân bố nhãn giữa các tập ổn định (chênh tối đa ~2,3 điểm phần trăm). |
+| Sao dùng split chính thức, không tự chia? | Trùng split của paper nên so sánh được; đã kiểm tra không trùng id. Lưu ý: paper chỉ nói chia 8:1:1, không nói chia phân tầng; tập test cân bằng nhãn tốt, tập val lệch nhẹ ở vài nhãn (4/28 nhãn có z-score > 2, ví dụ relief và embarrassment). Em chưa chia lại phân tầng vì sẽ phải train lại tất cả và mất khả năng so sánh với paper. |
 | Kết quả có tin cậy không? | Một seed, nên chênh lệch nhỏ có thể là nhiễu. Chênh PhoBERT–BiLSTM đã có khoảng tin cậy bootstrap (không chứa 0 ở hầu hết nhóm). Nếu còn thời gian sẽ chạy thêm seed. |
 | Ngưỡng 0,5 có tối ưu không? | Với một ngưỡng chung, cải thiện rất nhỏ ở mô hình hội tụ. Ngưỡng riêng từng nhãn chưa thử, đó là RQ1 ở cuối kì. |
 | Có dùng test để chọn gì không? | Không. Mọi lựa chọn (siêu tham số, ngưỡng, mô hình) chỉ dựa trên val; test chạy một lần. |

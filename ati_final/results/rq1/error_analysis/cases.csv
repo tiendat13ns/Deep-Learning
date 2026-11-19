@@ -1,0 +1,81 @@
+group,sample_id,label,tier,prob,threshold_per_label,true_labels,pred_fixed,pred_global,pred_per_label,n_true
+fn_per_label,you005871,realization,tail,0.0333,0.4,realization; confusion; embarrassment,confusion; embarrassment,confusion; embarrassment,confusion,3
+fn_per_label,3956,joy,head,0.5201,0.65,amusement; excitement; joy,amusement; excitement; joy; surprise,amusement; excitement; surprise,amusement; excitement; surprise,3
+fn_per_label,6685,anger,head,0.4546,0.675,anger,disgust; annoyance,disgust,disgust; annoyance,1
+fn_per_label,24530,optimism,head,0.0097,0.65,joy; optimism; admiration,curiosity; confusion; annoyance,curiosity; confusion; annoyance,curiosity; confusion; annoyance; disapproval,3
+fn_per_label,6892,disapproval,mid,0.1626,0.375,annoyance; disapproval,optimism; caring; realization,optimism; realization,optimism; realization,2
+fn_per_label,tik001429,desire,mid,0.0811,0.4,love; desire,joy; love,joy; love,joy; love,2
+fn_per_label,13384,disappointment,head,0.2988,0.6,amusement; disappointment; annoyance,amusement; annoyance; disapproval,amusement; annoyance; disapproval,amusement; annoyance; disapproval,3
+fn_per_label,6312,anger,head,0.0049,0.675,anger; annoyance,neutral,neutral,neutral,2
+fn_per_label,17275,disapproval,mid,0.0325,0.375,disgust; disapproval,realization; disappointment; sadness,disappointment; sadness,realization; disappointment; sadness,2
+fn_per_label,1493,sadness,head,0.2834,0.6,disappointment; sadness,confusion; nervousness,confusion,confusion; nervousness; annoyance,2
+fn_per_label,tik009836,remorse,tail,0.548,0.725,remorse; sadness; grief,remorse; sadness; grief,sadness; grief,sadness; grief,3
+fn_per_label,you000237,disgust,head,0.3221,0.45,disgust; disapproval,anger; annoyance,anger; annoyance,anger; annoyance; disapproval,2
+fn_per_label,you002031,remorse,tail,0.4891,0.725,realization; nervousness; remorse; sadness,realization; disappointment; sadness,realization; disappointment; sadness,realization; disappointment; sadness,4
+fn_per_label,21390,relief,tail,0.6705,0.775,caring; relief,desire; optimism; caring; relief; sadness; grief,desire; optimism; caring; relief; sadness; grief,desire; caring; sadness,2
+fn_per_label,tik012731,nervousness,tail,0.168,0.525,nervousness,anger; annoyance,anger; annoyance,anger; annoyance,1
+fn_per_label,you001290,gratitude,mid,0.0846,0.85,gratitude; realization,approval; neutral,approval,approval; neutral,2
+fn_per_label,tik012189,remorse,tail,0.2372,0.725,remorse; sadness,disappointment; sadness,disappointment; sadness,disappointment; sadness,2
+fn_per_label,20465,approval,mid,0.0094,0.7,approval,fear; nervousness; sadness; annoyance,fear; nervousness; sadness,fear; nervousness; sadness; annoyance,1
+fn_per_label,5214,disapproval,mid,0.1432,0.375,anger; disapproval,disgust; anger,disgust; anger,disgust; anger,2
+fn_per_label,23116,pride,mid,0.0721,0.625,joy; pride,joy; relief,joy; relief,relief,2
+fp_per_label,3018,disapproval,mid,0.7756,0.375,annoyance,anger; annoyance; disapproval,anger; annoyance; disapproval,anger; annoyance; disapproval,1
+fp_per_label,tik001408,confusion,tail,0.8688,0.575,curiosity,curiosity; confusion; annoyance,curiosity; confusion; annoyance,curiosity; confusion; annoyance,1
+fp_per_label,1514,amusement,head,0.9576,0.5,joy; approval; realization,amusement; joy,amusement; joy,amusement; joy,3
+fp_per_label,3900,excitement,mid,0.7019,0.525,admiration; surprise,excitement; admiration; surprise,excitement; admiration; surprise,excitement; admiration; surprise,2
+fp_per_label,17525,neutral,mid,0.7095,0.475,approval,approval; neutral,neutral,neutral,1
+fp_per_label,14181,amusement,head,0.7326,0.5,excitement; joy,amusement; excitement,amusement; excitement,amusement; excitement,2
+fp_per_label,2100,nervousness,tail,0.6857,0.525,amusement; disappointment,amusement; fear; nervousness,amusement; fear; nervousness,amusement; fear; nervousness; annoyance,2
+fp_per_label,4978,annoyance,head,0.4094,0.325,anger,disgust; anger,disgust; anger,disgust; anger; annoyance,1
+fp_per_label,5960,grief,tail,0.9189,0.875,caring; nervousness; annoyance,caring; sadness; grief,caring; sadness; grief,sadness; grief,3
+fp_per_label,3096,amusement,head,0.6427,0.5,excitement; joy; love; desire,amusement; love; disappointment; sadness,amusement; disappointment; sadness,amusement; desire; disappointment; sadness,4
+fp_per_label,tik024213,joy,head,0.8362,0.65,amusement; pride; admiration,amusement; joy; love; relief,amusement; joy; love,amusement; joy,3
+fp_per_label,you003269,embarrassment,mid,0.8886,0.8,fear; nervousness,fear; nervousness; embarrassment,fear; nervousness; embarrassment,fear; nervousness; embarrassment,2
+fp_per_label,19722,annoyance,head,0.4469,0.325,amusement; approval,amusement; caring; admiration; approval; disapproval,amusement; admiration; approval; disapproval,amusement; admiration; approval; annoyance; disapproval,2
+fp_per_label,you000924,joy,head,0.7177,0.65,excitement; gratitude; surprise,joy; admiration; gratitude; approval,joy; admiration; gratitude; approval,joy; admiration; gratitude; approval,3
+fp_per_label,2135,approval,mid,0.7651,0.7,joy; admiration,joy; admiration; approval,joy; admiration; approval,joy; admiration; approval,2
+fp_per_label,4058,confusion,tail,0.7005,0.575,annoyance,desire; curiosity; confusion; disapproval,desire; curiosity; confusion; disapproval,desire; confusion; annoyance; disapproval,1
+fp_per_label,tik014279,excitement,mid,0.9002,0.525,curiosity,amusement; excitement,excitement,amusement; excitement,1
+fp_per_label,4980,excitement,mid,0.748,0.525,amusement; curiosity,amusement; excitement; joy; love; desire,amusement; excitement; joy; love; desire,amusement; excitement; joy; desire,2
+fp_per_label,6107,remorse,tail,0.8594,0.725,approval; nervousness,remorse; disappointment; sadness; grief; anger,remorse; disappointment; sadness; grief; anger,remorse; disappointment; sadness; anger; annoyance,2
+fp_per_label,you000845,realization,tail,0.4936,0.4,gratitude; fear; nervousness,optimism; gratitude; relief; fear; nervousness,optimism; gratitude; relief; fear; nervousness,optimism; gratitude; realization; fear; nervousness,3
+fn_introduced,1229,remorse,tail,0.6704,0.725,remorse; disappointment; sadness,remorse; disappointment; sadness; grief,remorse; disappointment; sadness; grief,disappointment; sadness,3
+fn_introduced,15225,excitement,mid,0.5051,0.525,excitement; joy; admiration; relief,excitement; joy,joy,joy,4
+fn_introduced,2411,grief,tail,0.8329,0.875,remorse; sadness; grief,remorse; sadness; grief,remorse; sadness; grief,remorse; sadness,3
+fn_introduced,you005912,remorse,tail,0.6992,0.725,remorse; sadness,remorse; disappointment; sadness,remorse; disappointment; sadness,disappointment; sadness,2
+fn_introduced,4730,anger,head,0.6289,0.675,anger,disgust; anger; annoyance,disgust; anger; annoyance,disgust; annoyance,1
+fn_introduced,31627,approval,mid,0.6876,0.7,approval,admiration; approval; neutral,admiration; approval,admiration; neutral,1
+fn_introduced,12783,caring,head,0.644,0.75,love; caring; sadness,caring; sadness; grief,caring; sadness; grief,sadness; grief,3
+fn_introduced,11784,joy,head,0.6238,0.65,joy; gratitude,joy; approval,joy; approval,approval,2
+fn_introduced,tik011486,sadness,head,0.5248,0.6,remorse; sadness,remorse; sadness,remorse,remorse,2
+fn_introduced,x000694,relief,tail,0.5347,0.775,relief,optimism; caring; relief; realization; sadness,optimism; caring; realization,optimism; caring; realization,1
+fp_introduced,157,disgust,head,0.4562,0.45,amusement; pride,amusement; annoyance,amusement; annoyance,amusement; disgust; annoyance,2
+fp_introduced,12544,realization,tail,0.4953,0.4,disapproval; neutral,caring; disapproval; neutral,caring; neutral,realization; disapproval; neutral,2
+fp_introduced,1857,realization,tail,0.4561,0.4,annoyance,neutral,neutral,realization; neutral,1
+fp_introduced,2821,annoyance,head,0.4573,0.325,disgust; disapproval,disgust; anger,disgust; anger,disgust; anger; annoyance,2
+fp_introduced,1772,annoyance,head,0.4083,0.325,nervousness; disgust; anger,disgust; anger,disgust; anger,disgust; anger; annoyance,3
+fp_introduced,997,annoyance,head,0.4135,0.325,disgust,disappointment; sadness,disappointment; sadness,disappointment; sadness; annoyance,1
+fp_introduced,4717,disgust,head,0.472,0.45,annoyance,anger; annoyance; disapproval,anger; annoyance,disgust; anger; annoyance; disapproval,1
+fp_introduced,x001265,desire,mid,0.4656,0.4,excitement; curiosity,caring; curiosity; confusion; nervousness,caring; curiosity; confusion,desire; curiosity; confusion; nervousness,2
+fp_introduced,2129,annoyance,head,0.4675,0.325,disgust; anger,disgust; anger,disgust; anger,disgust; anger; annoyance,2
+fp_introduced,tik018661,annoyance,head,0.4988,0.325,embarrassment,,,annoyance,1
+fn_recovered,1984,desire,mid,0.4469,0.4,amusement; excitement; joy; desire,amusement; excitement; joy; love,amusement; excitement; joy,amusement; excitement; joy; desire,4
+fn_recovered,13417,neutral,mid,0.4815,0.475,neutral,annoyance; disapproval,disapproval,annoyance; disapproval; neutral,1
+fn_recovered,24606,disapproval,mid,0.4614,0.375,annoyance; disapproval,disappointment; annoyance,disappointment; annoyance,disappointment; annoyance; disapproval,2
+fn_recovered,4079,annoyance,head,0.4878,0.325,sadness; annoyance,amusement; disappointment,amusement; disappointment,amusement; disappointment; annoyance,2
+fn_recovered,13767,disgust,head,0.4999,0.45,disgust; anger,sadness,sadness,sadness; disgust; annoyance,2
+fp_removed,4710,grief,tail,0.8038,0.875,disappointment; sadness,amusement; relief; sadness; grief,amusement; relief; sadness; grief,amusement; relief; sadness,2
+fp_removed,1138,confusion,tail,0.545,0.575,amusement; surprise,amusement; surprise; confusion,amusement; surprise,amusement; surprise; fear,2
+fp_removed,24513,disappointment,head,0.5948,0.6,neutral,disappointment; annoyance,disappointment; annoyance,annoyance; disapproval,1
+fp_removed,you004981,gratitude,mid,0.65,0.85,relief,amusement; joy; gratitude; relief,joy; gratitude; relief,amusement; joy; relief,1
+fp_removed,18212,optimism,head,0.5328,0.65,desire; caring; sadness; grief,desire; optimism; caring; sadness; grief,desire; caring; sadness; grief,desire; caring; sadness; grief,4
+multi_label,16719,,,,,amusement; fear; grief; disgust,anger; annoyance,anger; annoyance,disgust; anger; annoyance,4
+multi_label,tik016784,,,,,fear; nervousness; embarrassment; disgust,fear; nervousness; embarrassment; sadness,fear; nervousness; embarrassment; sadness,fear; nervousness; embarrassment; sadness,4
+multi_label,18541,,,,,love; caring; gratitude; realization; annoyance,realization; sadness,realization,realization,5
+multi_label,you002748,,,,,love; caring; gratitude; relief; sadness,love; caring; gratitude,love; caring; gratitude,love; caring; gratitude,5
+multi_label,18288,,,,,love; caring; sadness; grief,love; caring,love; caring,love; caring,4
+multi_label,you002161,,,,,gratitude; relief; remorse; sadness,gratitude; remorse; sadness; grief,gratitude; remorse; sadness,remorse; sadness,4
+multi_label,tik012624,,,,,fear; nervousness; remorse; sadness,fear; nervousness,fear; nervousness,fear; nervousness,4
+multi_label,6293,,,,,love; desire; fear; nervousness,love; desire; caring; sadness,love; caring; sadness,love; desire; sadness,4
+multi_label,5081,,,,,amusement; surprise; disappointment; anger,disappointment; annoyance,disappointment; annoyance,disappointment; annoyance,4
+multi_label,3249,,,,,desire; optimism; caring; pride,optimism; pride,optimism; pride,optimism; pride,4

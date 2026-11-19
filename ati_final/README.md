@@ -1,132 +1,133 @@
-# ViGoEmotions – Nhận diện cảm xúc tiếng Việt đa nhãn (Project 2)
+# ViGoEmotions: Multi-label Vietnamese Emotion Recognition (Midterm + Final RQ1)
 
-Bài giữa kì và cuối kì của môn ATI: phân loại đa nhãn 27 cảm xúc + `neutral` trên bộ dữ liệu **ViGoEmotions** (20.664 bình luận mạng xã hội, EACL 2026).
-Chi tiết đề bài nằm ở file PDF của môn (không đưa lên repo). Trạng thái công việc xem [PROGRESS.md](PROGRESS.md), kế hoạch xem [PIPELINE.md](PIPELINE.md), báo cáo tuần ở [reports/](reports/).
+Advanced Topics in Information Technology 2026 · Class 62FIT4ATI-CLC02 · Group 03 · Project P02
 
-## ⚠️ Quy tắc về dữ liệu (license)
+| Member | Student ID |
+|---|---|
+| Nguyễn Quốc Khanh | 2301140051 |
+| Đinh Tiến Đạt | 2301140022 |
+| Nguyễn Duy Anh | 2301140006 |
 
-- Dataset chỉ dùng cho nghiên cứu phi thương mại và giáo dục, **không được phân phối lại**.
-- **Không commit** dữ liệu gốc (`data/` đã nằm trong `.gitignore`), không dán câu bình luận gốc vào README, báo cáo, issue, hay output notebook.
-- Repo chỉ chứa: mã nguồn, file chỉ số split (chỉ có id), bảng thống kê tổng hợp, và xác suất dự đoán của mô hình.
-- Mỗi thành viên **tự tải** dataset bằng tài khoản Hugging Face của mình (xem bước 3).
+GitHub repository: https://github.com/tiendat13ns/Deep-Learning (folder `ati_final/`)
 
-## Cấu trúc thư mục
+**Task.** Fine-grained multi-label emotion recognition on ViGoEmotions (Tran et al., EACL 2026): 20,664 Vietnamese social-media comments, 27 emotions plus `neutral`, 28 labels.
+**Midterm.** Three baselines: TF-IDF + logistic regression, BiLSTM and PhoBERT-base.
+**Final (RQ1).** *Is a single uniform decision threshold (τ = 0.5) optimal across all labels under class imbalance?* We decode the same PhoBERT probabilities with a fixed 0.5, one global threshold and one threshold per label (both tuned on validation only and frozen before test inference), check the differences with a paired bootstrap and two extra training seeds, and audit the errors.
 
-```
-ati_final/
-  notebooks/
-    01_eda.ipynb          Phân tích dữ liệu (mục A giữa kì)
-    02_tfidf_lr.ipynb     Baseline TF-IDF + One-vs-Rest Logistic Regression
-    03_bilstm.ipynb       Baseline BiLSTM (sigmoid + BCE)
-    04_phobert.ipynb      Bảng kết quả gộp 3 mô hình, chi phí, quét ngưỡng (đọc kết quả PhoBERT đã lưu)
-    05_analysis.ipynb     Trả lời câu hỏi giữa kì 1-4 và phân tích lỗi (chỉ đọc xác suất đã lưu)
-  src/
-    data.py               Nạp dữ liệu từ Hugging Face, nhãn multi-hot 28 chiều, nhóm head/mid/tail
-    preprocess.py         Chuẩn hoá văn bản (<br>, HTML entity, Unicode NFC)
-    metrics.py            Macro/Micro-F1, F1 từng nhãn, Hamming Loss, LRAP, mAP; lưu/đọc xác suất
-    segment.py            Tách từ tiếng Việt bằng VnCoreNLP (cho PhoBERT)
-    train_phobert.py      Fine-tune PhoBERT-base (chạy bằng dòng lệnh, xem mục PhoBERT)
-    features.py           Cờ kiểu văn bản (emoji, teencode, câu ngắn/dài) dùng cho phân tích theo nhóm
-    show_cases.py         In ca lỗi (kèm văn bản gốc) ra màn hình để đọc cục bộ, KHÔNG ghi file
-  splits/                 id của train/val/test (không có văn bản) + label_tiers.json
-  results/
-    tables/               Bảng thống kê và kết quả (.csv)
-    figures/              Biểu đồ (.png)
-    preds/                Xác suất dự đoán val/test của từng mô hình (.npz)
-  reports/                Báo cáo tuần
-  data/                   (tự sinh/tự tải, KHÔNG commit)
-```
+## Main results (test set)
 
-## Cài đặt
+| Midterm, τ = 0.5, seed 42 | Macro-F1 | Micro-F1 | Hamming loss | LRAP | mAP | Parameters | Train time |
+|---|---|---|---|---|---|---|---|
+| TF-IDF + One-vs-Rest Logistic Regression | 0.548 | 0.563 | 0.0666 | 0.694 | 0.561 | 1.05 M | 2.7 s |
+| BiLSTM | 0.511 | 0.541 | 0.0590 | 0.675 | 0.539 | 1.38 M | 151 s |
+| PhoBERT-base (selected) | **0.608** | **0.624** | **0.0583** | **0.753** | **0.630** | 135.0 M | ~20 min |
 
-Yêu cầu: Python 3.10+ (đã chạy với 3.12).
+| Final RQ1, PhoBERT-base, 3 seeds (mean ± std) | Macro-F1 | Micro-F1 | Hamming loss | Tail Macro-F1 | Val − test gap |
+|---|---|---|---|---|---|
+| Fixed τ = 0.5 | 0.6036 ± 0.0088 | 0.6190 ± 0.0087 | 0.0591 ± 0.0017 | 0.5673 ± 0.0159 | +0.0002 |
+| Global τ* (0.575–0.600) | 0.6098 ± 0.0058 | **0.6254 ± 0.0058** | **0.0544 ± 0.0010** | 0.5741 ± 0.0128 | −0.0009 |
+| Per-label τ*_k | **0.6115 ± 0.0031** | 0.6241 ± 0.0030 | 0.0551 ± 0.0015 | 0.5751 ± 0.0026 | +0.0157 |
 
-**1. Clone repo và tạo môi trường**
-```bash
-git clone https://github.com/tiendat13ns/Deep-Learning.git
-cd Deep-Learning/ati_final
-python -m venv .venv
-# Windows: .venv\Scripts\activate      Linux/macOS: source .venv/bin/activate
-```
+Answer to RQ1: 0.5 is not optimal; a single validation-tuned threshold is better in every seed and reliably lowers Hamming loss. Per-label thresholds add no reliable gain over it (+0.0017 ± 0.0032 Macro-F1, sign changes across seeds, bootstrap 95% CI includes 0), overfit validation and do not help tail labels.
 
-**2. Cài thư viện**
+## Contents
+
+| Path | Content |
+|---|---|
+| `notebooks/` | Executed notebooks, outputs kept: `01` dataset analysis · `02` TF-IDF + LR · `03` BiLSTM · `04` PhoBERT results and merged table · `05` Midterm questions 1–5 and error analysis · `06` RQ1 threshold calibration and evaluation · `07` RQ1 bootstrap, three seeds and error audit |
+| `src/` | Data loading (`data.py`), preprocessing, VnCoreNLP segmentation, metrics, PhoBERT training (`train_phobert.py`), threshold calibration (`thresholds.py`, `analyze_thresholds.py`), RQ1 robustness and error audit (`rq1_audit.py`), CSV export of predictions (`export_predictions.py`), local case viewer (`show_cases.py`) |
+| `configs/` | Hyper-parameters of every experiment (one JSON per run) and the RQ1 protocol (`rq1_thresholds.json`) |
+| `splits/` | Comment ids of train / val / test (16,531 / 2,066 / 2,067) and `label_tiers.json` (head / mid / tail, from training counts) |
+| `results/tables/` | Result tables (CSV) and per-run training cost (`*_cost.json`, `model_cost.csv`) |
+| `results/figures/` | Midterm analysis figures; `midterm_slides/` the figures of the Midterm slides (in the repository: `slides/assets/`); `final_report_color/` and `final_report_bw/` the figures of the Final report (colour and black-and-white versions) |
+| `results/predictions/` | Per-comment labels and probabilities of every run as CSV; `rq1_*.csv` add `pred_fixed`, `pred_global`, `pred_per_label` and `label_cardinality` (label order in `labels.json`) |
+| `results/preds/` | The same predictions as `.npz`, read by the notebooks |
+| `results/rq1/` | Frozen thresholds (`calibration.json`), RQ1 tables and figures, decoded predictions, the extra seeds (`seeds/`) and the error audit (`error_analysis/`: case ids, probabilities and paraphrased notes) |
+| `results/error_cases/` | Midterm error-case sample (ids and probabilities only) |
+| `results/environment.md` | Hardware, library versions and seeds |
+| `reports/final_report/` | Scripts that draw the report figures and build the report from the course template |
+| `reports/rq1_*.md` | RQ1 analysis notes (in Vietnamese) |
+| `tests/` | 13 unit tests: threshold calibration, the validation/test boundary, the bootstrap scorer |
+
+No file contains comment text, in line with the dataset licence.
+
+## Data
+
+- **Source:** Hugging Face dataset [uitnlp/vigoemotions](https://huggingface.co/datasets/uitnlp/vigoemotions). The dataset is gated: accept its terms on the page, then run `hf auth login` or set `HF_TOKEN`. `src/data.py` downloads it to `data/` on first use.
+- **Terms:** non-commercial research and education only; the data must not be redistributed. `data/`, model checkpoints and tokens are never included in this submission.
+- **Split:** the official split; the ids are in `splits/`.
+
+## Installation
+
+Python 3.10+ (developed with 3.12.4); Java 8+ for VnCoreNLP word segmentation (PhoBERT only); a CUDA GPU for the BiLSTM and PhoBERT (6 GB is enough).
+
 ```bash
 pip install -r requirements.txt
+pip install torch --index-url https://download.pytorch.org/whl/cu126   # CUDA build of PyTorch
+python -c "from src.data import load_all; print({k: len(v) for k, v in load_all().items()})"   # {'train': 16531, 'val': 2066, 'test': 2067}
 ```
-Nếu có GPU NVIDIA, cài PyTorch bản CUDA thay cho bản CPU mặc định (chỉ cần cho BiLSTM/PhoBERT):
-```bash
-pip install torch --index-url https://download.pytorch.org/whl/cu126
-python -c "import torch; print(torch.cuda.is_available())"   # phải in True
-```
-GPU đã dùng để phát triển: RTX 3060 Laptop 6 GB (đủ cho PhoBERT-base với fp16, `max_length` 128, batch 16).
 
-**3. Truy cập dataset (gated)**
-1. Vào https://huggingface.co/datasets/uitnlp/vigoemotions, đăng nhập và đồng ý điều khoản để xin quyền.
-2. Tạo token loại *Read* tại https://huggingface.co/settings/tokens.
-3. Chạy `hf auth login` rồi dán token (hoặc đặt biến môi trường `HF_TOKEN`). **Không commit token.**
+Everything after model training (notebooks `04`–`07`, RQ1, figures) runs on the CPU from the saved predictions in `results/`; `requirements-analysis.txt` is enough for that part and needs no data download.
 
-Kiểm tra:
-```bash
-python -c "from src.data import load_all; d = load_all(); print({k: len(v) for k, v in d.items()})"
-# {'train': 16531, 'val': 2066, 'test': 2067}
-```
-Dữ liệu được lưu trong cache của Hugging Face; `data/` chỉ là bản sao tuỳ chọn để mở xem.
+## Running order
 
-## Chạy lại thực nghiệm
-
-Chạy theo thứ tự từ thư mục `notebooks/` (notebook dùng đường dẫn tương đối `../`):
+Run from this folder (`code/`, i.e. `ati_final/` in the repository). On Windows set `PYTHONIOENCODING=utf-8`; if `jupyter` is not on the PATH use `python -m jupyter`.
 
 ```bash
-cd notebooks
-jupyter nbconvert --to notebook --execute --inplace 01_eda.ipynb
-jupyter nbconvert --to notebook --execute --inplace 02_tfidf_lr.ipynb
+# 1. Midterm baselines
+python -m jupyter nbconvert --to notebook --execute --inplace notebooks/01_eda.ipynb
+python -m jupyter nbconvert --to notebook --execute --inplace notebooks/02_tfidf_lr.ipynb
+python -m jupyter nbconvert --to notebook --execute --inplace notebooks/03_bilstm.ipynb
+python -m src.train_phobert --emoji text --loss pw_sqrt --epochs 12 --patience 3 --name phobert_text_pw_sqrt_ep12   # selected model, ~20 min on GPU
+python -m jupyter nbconvert --to notebook --execute --inplace notebooks/04_phobert.ipynb
+python -m jupyter nbconvert --to notebook --execute --inplace notebooks/05_analysis.ipynb
+
+# 2. Final RQ1 (seed 42): calibrate on validation, freeze, evaluate once
+python -m jupyter nbconvert --to notebook --execute --inplace notebooks/06_thresholds.ipynb   # = python -m src.analyze_thresholds
+
+# 3. RQ1 robustness: two extra seeds of the same configuration, bootstrap, error audit
+python -m src.train_phobert --emoji text --loss pw_sqrt --epochs 12 --patience 3 --seed 43 --name phobert_text_pw_sqrt_ep12_seed43
+python -m src.train_phobert --emoji text --loss pw_sqrt --epochs 12 --patience 3 --seed 44 --name phobert_text_pw_sqrt_ep12_seed44
+python -m jupyter nbconvert --to notebook --execute --inplace notebooks/07_rq1_robustness_errors.ipynb   # = python -m src.rq1_audit
+python -m unittest discover -s tests
+
+# 4. CSV predictions, report figures and the report (the report build needs Microsoft Word on Windows
+#    and ATI_Final_Report_Template.docx placed next to this README)
+python -m src.export_predictions
+python reports/final_report/make_figures.py --style color
+python reports/final_report/make_report.py --style color
+powershell -File reports/final_report/update_fields.ps1 reports/final_report/62FIT4ATI-CLC02_G03_P02_report_color.docx
 ```
-Hoặc mở trong VS Code/Jupyter và chạy lần lượt. Các notebook tự ghi kết quả vào `results/` và `splits/`.
 
-### PhoBERT
+The other four PhoBERT runs of the Midterm ablation (emoji kept or converted, plain or square-root-weighted BCE, 6 or 12 epochs) use the same command with the arguments in `configs/phobert_*.json`. The error audit's case sample is drawn with seed 42 before any text is read; `python -m src.show_cases --cases results/rq1/error_analysis/cases.csv --group <group>` prints those comments on screen to read them locally and never saves them.
 
-Cần thêm **Java (>= 8)** để chạy VnCoreNLP (`java -version`). Lần đầu chạy, `src/segment.py` tự tải jar và model tách từ (~28 MB) vào `data/vncorenlp/`; PhoBERT (`vinai/phobert-base`, ~500 MB) tự tải từ Hugging Face.
-```bash
-# chạy từ thư mục ati_final; mỗi lần ~12-15 phút trên RTX 3060 Laptop 6 GB (đỉnh ~3,3 GB VRAM)
-python -m src.train_phobert --emoji text --loss bce        # cấu hình chính
-python -m src.train_phobert --emoji keep --loss bce        # đối chứng: giữ emoji (bị <unk> trong PhoBERT)
-python -m src.train_phobert --emoji text --loss pw_sqrt    # BCE có pos_weight = sqrt(#âm/#dương)
-# cấu hình đã chọn: thêm --epochs 12 --patience 3 --name phobert_text_pw_sqrt_ep12 (6 epoch chưa hội tụ)
-```
-Tokenizer của PhoBERT đưa **mọi emoji về `<unk>`**, nên cấu hình chính thay emoji bằng tên của nó (thư viện `emoji`). Kết quả: `results/preds/phobert_*.npz`, `results/tables/phobert_*_history.csv` và `phobert_*_cost.json` (số tham số, thời gian, revision checkpoint, siêu tham số). Checkpoint lưu ở `data/ckpt/` (không commit).
+## Where each table and figure of the report comes from
 
-## Giao thức thực nghiệm (bắt buộc tuân thủ)
+| Report item | Produced by | File |
+|---|---|---|
+| Table 2 (dataset statistics) | notebook `01`; report script (cardinality from `splits/` labels) | `results/tables/text_length.csv`, `informal_features.csv` |
+| Table 3 (training configuration) | – | `configs/*.json` |
+| Table 4 (compute cost) | training runs | `results/tables/model_cost.csv`, `results/tables/*_cost.json` |
+| Table 5 (Midterm baselines) | notebook `04` | `results/tables/baseline_results.csv` |
+| Table 6 (RQ1, 3 seeds) | notebook `07` | `results/rq1/tables/seed_mean_std.csv`, `seed_results.csv` |
+| Table 7 (paired differences, bootstrap) | notebook `07` | `results/rq1/tables/seed_macro_f1_deltas.csv`, `bootstrap_deltas.csv` |
+| Table 8 (label cardinality) | notebooks `06`, `07` | `results/rq1/tables/cardinality_metrics.csv`, `results/rq1/error_analysis/cardinality_errors.csv` |
+| Table 9 (validation-to-test gap) | notebooks `06`, `07` | `results/rq1/tables/generalization_gaps.csv`, `seed_mean_std.csv` |
+| Tables 10–13 (error audit) | notebook `07` | `results/rq1/error_analysis/error_counts.csv`, `confused_pairs.csv`, `cause_summary.csv`, `cases.csv`, `annotations.csv` |
+| Table 16 (per-label results) | notebook `06` | `results/rq1/tables/per_label_comparison.csv`, `per_label_metrics.csv` |
+| Figures 1–7 | `reports/final_report/make_figures.py` | `results/figures/final_report_color/` (inputs: `label_distribution.csv` from notebook `01`; `seed_results.csv`, `seed_threshold_stability.csv`, `seed_gain_transfer.csv`, `decision_flips.csv`, `cardinality_errors.csv` from notebook `07`) |
 
-| Quy tắc | Cách làm |
+## Reproducibility
+
+| Item | Value |
 |---|---|
-| Split | Dùng split chính thức của dataset: train 16.531 / val 2.066 / test 2.067 |
-| Chọn siêu tham số và ngưỡng | **Chỉ trên val**. Test chỉ chạy một lần với cấu hình đã chốt |
-| Ma trận đồng xuất hiện | Chỉ tính từ nhãn train |
-| Nhóm head/mid/tail | Theo số mẫu dương ở train: head ≥ 1000, mid 750–999, tail < 750 (`src/data.py`) |
-| Xác suất dự đoán | Lưu `.npz` (trước khi áp ngưỡng) vào `results/preds/` |
-| Seed | `SEED = 42` trong `src/data.py` |
-| Chỉ số chính | Macro-F1 và Micro-F1 (không dùng subset accuracy làm chỉ số chính) |
-| Chuẩn hoá văn bản | `src/preprocess.py`; giữ emoji; không sửa teencode ở cấu hình chính |
+| Hardware | NVIDIA RTX 3060 Laptop GPU, 6 GB (PhoBERT peak memory 3.3 GB); details in `results/environment.md` |
+| Seeds | 42 for every Midterm run (`SEED` in `src/data.py`: Python, NumPy, PyTorch), the bootstrap and the audit sample; 43 and 44 for the RQ1 seed check |
+| Pretrained checkpoint | `vinai/phobert-base`, revision `01daacda68afe13d83023d16ec647239e344a1e6` |
+| Preprocessing | HTML unescape, `<br>` → space, Unicode NFC, whitespace collapse; emoji and teencode kept. PhoBERT only: emoji → English names, then VnCoreNLP word segmentation, max 128 tokens |
+| PhoBERT settings | AdamW, lr 2e-5, weight decay 0.01, 10% warm-up, batch 16, fp16, up to 12 epochs, early stopping (patience 3) on validation Macro-F1; BCE with √(neg/pos) positive weights |
+| Decision thresholds | 0.5 in the Midterm; RQ1 grid 0.05–0.90 (step 0.025), tuned on validation only, frozen in `results/rq1/calibration.json` before test inference |
 
-## Quy trình làm việc nhóm
+## Reference
 
-```bash
-git pull                       # luôn pull trước khi làm
-git checkout -b ten-ban/chu-de # làm trên nhánh riêng, ví dụ: an/bilstm
-git add <file cụ thể>          # không dùng `git add .` khi chưa kiểm tra git status
-git commit -m "Mô tả ngắn"
-git push -u origin ten-ban/chu-de
-```
-- Trước khi commit, chạy `git status` và chắc chắn **không có** `data/`, file `.csv` chứa văn bản gốc, token, hay checkpoint mô hình lớn (`*.pt`, `*.pth`).
-- Notebook: xoá output nào có chứa câu bình luận gốc trước khi commit.
-- Mỗi mô hình mới cần: notebook riêng trong `notebooks/`, file `.npz` xác suất trong `results/preds/`, và một dòng trong bảng kết quả.
-
-## Xử lý sự cố thường gặp
-
-| Triệu chứng | Cách xử lý |
-|---|---|
-| `Dataset ... is a gated dataset` | Chưa xin quyền hoặc chưa đăng nhập: làm lại bước 3 |
-| `torch.cuda.is_available()` là `False` | Đang cài bản CPU: cài lại bằng lệnh có `--index-url` ở bước 2 |
-| Cảnh báo symlink của `huggingface_hub` trên Windows | Chỉ là cảnh báo; có thể bỏ qua hoặc đặt `HF_HUB_DISABLE_SYMLINKS_WARNING=1` |
-| `WRITEBACKIFCOPY base is read-only` khi fit LR | Không dùng `n_jobs > 1` với liblinear (notebook đã để chạy tuần tự) |
-| Hết VRAM khi fine-tune PhoBERT | Giảm batch xuống 8 và dùng gradient accumulation, giữ fp16 |
+H. Q. Tran, N. T. Pham, S. T. Luu, and K. V. Nguyen, "ViGoEmotions: A benchmark dataset for fine-grained emotion detection on Vietnamese texts," in *Proc. EACL*, vol. 1, 2026, pp. 2805–2831, doi: 10.18653/v1/2026.eacl-long.129.

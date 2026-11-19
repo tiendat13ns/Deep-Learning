@@ -1,0 +1,32 @@
+{
+ "label_order": [
+  "amusement",
+  "excitement",
+  "joy",
+  "love",
+  "desire",
+  "optimism",
+  "caring",
+  "pride",
+  "admiration",
+  "gratitude",
+  "relief",
+  "approval",
+  "realization",
+  "surprise",
+  "curiosity",
+  "confusion",
+  "fear",
+  "nervousness",
+  "remorse",
+  "embarrassment",
+  "disappointment",
+  "sadness",
+  "grief",
+  "disgust",
+  "anger",
+  "annoyance",
+  "disapproval",
+  "neutral"
+ ]
+}
